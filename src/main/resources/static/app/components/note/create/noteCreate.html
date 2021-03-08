@@ -1,0 +1,67 @@
+<!--make flex rows in text area-->
+<div class="form-outline" xmlns:style="http://www.w3.org/1999/xhtml">
+    <textarea class="form-control" id="textAreaExample" rows="4"></textarea>
+    <label class="form-label" for="textAreaExample">Message</label>
+</div>
+
+<!--&lt;!&ndash;make function to just plate file &ndash;&gt;-->
+<!--<form>-->
+<!--    <div class="form-group">-->
+<!--        <label for="exampleFormControlFile1">Example file input</label>-->
+<!--        <input type="file" class="form-control-file" id="exampleFormControlFile1">-->
+<!--    </div>-->
+<!--</form>-->
+
+<div class="paste-zone"><input maxlength="0" class="paste-zone-input" placeholder="Paste here text or image from your clipboard (ctrl+v)"></div>
+<!--todo: https://planeupload.com/#usage link do togo jak to ogarnąć. Bo ja żem done -->
+
+<form action="abc.php" method="post" enctype="multipart/form-data" style="size">
+    <div class="actions col-md-auto" ><input type="submit" name="commit" value="Submit" /></div>
+    <input type="file" name="aaa"/>
+</form>
+<div class="align-center align-content-md-center ">
+<img id="showImage" class="align-self-center cer"></img>
+</div>
+<label style="size: A5"><strong>Notatka</strong><span class="box__dragndrop"> or drag it here</label>
+
+
+<script>
+    window.addEventListener("paste", function(e){
+        var item = Array.from(e.clipboardData.items).find(x => /^image\//.test(x.type));
+
+        var blob = item.getAsFile();
+
+        var img = new Image();
+
+        img.onload = function(){
+            document.body.appendChild(this.getElementById("showImage"));
+        };
+
+        img.src = URL.createObjectURL(blob);
+        this.getElementById("showImage").setAttribute(img);
+        this.getElementById("showImage").onload();
+        this.getElementById("showImage").setAttribute(src=img.src)
+        this.getElementById("showImage").src(img);
+        this.getElementById("showImage").
+        this.getElementById("showImage").setAttribute("src", URL.createObjectURL(blob));
+    });
+     {
+
+    }
+
+<!--    ---------------------------------------- -->
+
+    e.originalEvent.clipboardData.files
+    const form = document.getElementById("new_document_attachment");
+    const fileInput = document.getElementById("document_attachment_doc");
+
+    fileInput.addEventListener('change', () => {
+        form.submit();
+    });
+
+    window.addEventListener('paste', e => {
+        fileInput.files = e.clipboardData.files;
+    });
+
+
+</script>
