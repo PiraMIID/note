@@ -6,21 +6,28 @@ angular.module('app')
             templateUrl: 'app/components/users/create/userCreate.html',
             controller: 'UserCreateController',
             controllerAs: 'ctrl'
-
         })
-
         .when('/user-login', {
             templateUrl: 'app/components/users/login/userLogin.html',
             controller: 'UserLoginController',
             controllerAs: 'ctrl'
         })
-        .when('/note-create', {
-            templateUrl: 'app/components/note/create/noteCreate.html',
-            controller: 'NoteCreateController',
+        .when('/panel-main', {
+            templateUrl: 'app/components/panel/main/mainPanel.html',
+            controller: 'PanelMainController',
             controllerAs: 'ctrl'
         })
-
+        .when('/panel-edit', {
+            templateUrl: 'app/components/panel/edit/editPanel.html',
+            controller: 'PanelEditController',
+            controllerAs: 'ctrl'
+        })
+        .when('/panel-main', {
+            templateUrl: 'app/components/panel/show/showPanel.html',
+            controller: 'PanelMainController',
+            controllerAs: 'ctrl'
+        })
         .otherwise({
-            redirectTo: '/exams'
+            redirectTo: '/panel-main'
         });
 });
