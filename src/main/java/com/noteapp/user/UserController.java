@@ -1,4 +1,4 @@
-package com.note.controller;
+package com.noteapp.user;
 
 import org.springframework.web.bind.annotation.RestController;
 

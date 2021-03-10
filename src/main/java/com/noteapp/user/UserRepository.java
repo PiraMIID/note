@@ -1,6 +1,6 @@
-package com.note.repository;
+package com.noteapp.user;
 
-import com.note.entity.User;
+import com.noteapp.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User,Long> {

@@ -4,3 +4,4 @@ angular.module('app')
         vm.user = UserService.getUser();
         $scope.user = vm.user;
     });
+    // .service('AuthenticationService',function($http, LOGIN_ENDPOINT));

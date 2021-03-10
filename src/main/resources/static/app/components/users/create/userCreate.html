@@ -1,3 +1,5 @@
+<!--todo: <div ng-show="authenticated"> variable authenticate will be using to everyone -->
+
 <div class="container">
     <div class="row">
         <div class="mx-auto">
@@ -33,6 +35,7 @@
                 <button  type="submit" class="btn btn-primary " ng-click="ctrl.saveUser()">Create</button>
 
             </div>
+            <label>{{$rootScope.authenticatedUser}}</label>
         </form>
     </div>
 </div>

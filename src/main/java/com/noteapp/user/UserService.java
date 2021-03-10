@@ -1,6 +1,5 @@
-package com.note.service;
+package com.noteapp.user;
 
-import com.note.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

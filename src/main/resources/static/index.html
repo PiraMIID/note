@@ -37,13 +37,16 @@
 
     <ul class="navbar-nav mr-auto"></ul>
     <form class="form-inline my-2 my-lg-0">
-      <a href="#!user-create" class="navbar-brand btn btn-outline-success my-2 my-sm-0"  aria-live="assertive" >Zaloguj</a>
-      <a href="#!note-create" class="navbar-brand btn btn-outline-warning my-2 my-sm-0"  aria-live="assertive" >Zajeerestruj</a>
+      <a id = "buttonLogIn" href="#!user-create" class="navbar-brand btn btn-outline-success my-2 my-sm-0"  aria-live="assertive" ng-show="!authenticatedUser" >Zaloguj</a>
+      <a href="#!note-create" class="navbar-brand btn btn-outline-warning my-2 my-sm-0"  aria-live="assertive" ng-show="!authenticatedUser" >Zajeerestruj</a>
       <a href="#!note-create" class="navbar-brand btn btn-outline-danger my-2 my-sm-0"  aria-live="assertive" ng-show="authenticatedUser">Wyloguj</a>
 
     </form>
 
 </nav>
+<label>{{$rootScope.authenticatedUser}}</label>
+<label>{{authenticatedUser}}</label>
+<label>siema</label>
 
 <div ng-view></div>
 
