@@ -1,12 +1,13 @@
 package com.noteapp.security;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
+@Controller
 public class AuthentionController {
-    @PostMapping("/user-login")
+    @PostMapping("/login")
     @ResponseBody
     public Principal login(Principal user) {
         return user;

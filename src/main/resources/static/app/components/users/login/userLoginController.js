@@ -1,7 +1,22 @@
 angular.module('app')
-    .controller('UserLoginController',function ($scope,$routeParams,UserService) {
-        const vm = this;
-        vm.user = UserService.getUser();
-        $scope.user = vm.user;
+    .controller('AuthenticationController', function ($rootScope, $location, AuthenticationService) {
+        var vm = this;
+        vm.credentials = {};
+        var loginSuccess = function () {
+            $rootScope.authenticated = true;
+            $location.path('/asset/list');
+        }
+        vm.login = function () {
+            AuthenticationService.authenticate(vm.credentials, loginSuccess);
+        }
+        var logoutSuccess = function () {
+            $rootScope.authenticated = false;
+            $location.path('/');
+        }
+        vm.logout = function () {
+            AuthenticationService.logout(logoutSuccess);
+        }
     });
-    // .service('AuthenticationService',function($http, LOGIN_ENDPOINT));
+
+
+

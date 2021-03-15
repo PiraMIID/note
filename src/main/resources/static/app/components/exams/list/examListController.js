@@ -5,4 +5,4 @@ angular.module('app')
     vm.search = text => {
         vm.exams = ExamService.getAll({text})
     }
-}
+});

@@ -1,54 +1,77 @@
+<!DOCTYPE html>
 <html data-ng-app="app">
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="css/main.css">
   <!-- Bootstrap -->
-  <script src=bower_componentss/jquery/dist/jquery.slim.js"></script>
-  <script src="bower_components/popper.js/dist/umd/popper.js"></script>
+  <script src=bower_components/jquery/dist/jquery.slim.js"></script>
+<!--  <script src="bower_components/popper.js/dist/umd/popper.js"></script>-->
   <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.css">
 
+<!--  <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>-->
+<!--  <link href="style.css" rel="stylesheet"/>-->
+
   <!-- Angular -->
-  <script src="bower_components/angular/angular.js"></script>
+
+  <script  src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
-  <script src="bower_components/angular-resource/angular-resource.js"></script>
+  <script  src="bower_components/angular-resource/angular-resource.js"></script>
 
   <!-- Application -->
-  <script src="app/index.js"></script>
-  <script src="app/config.js"></script>
+  <script  src="app/index.js"></script>
+  <script  src="app/config.js"></script>
+
+  <script src="app/services/userServices.js"></script>
+  <script src="app/services/assetServices.js"></script>
+  <script src="app/services/noteServices.js"></script>
+
+  <script src="app/user/login/userLoginController.js"></script>
+  <script src="app/user/create/userCreateController.js"></script>
+  <script src="app/user/create/userCreateController.js"></script>
+
+  <script src="app/note/create/noteCreateController.js"></script>
+  <script  src="app/note/edit/noteEditController.js"></script>
 
 
 
-  <script src="app/components/users/create/userCreateController.js"></script>
+
   <link rel="canonical" href="https://css-tricks.com/examples/DragAndDropFileUploading/">
 
-<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
 
 
 
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" aria-live="assertive" href="#">Exams</a>
+  <a class="navbar-brand" aria-live="assertive" href="">FastNote</a>
 
 
 
     <ul class="navbar-nav mr-auto"></ul>
     <form class="form-inline my-2 my-lg-0">
-      <a id = "buttonLogIn" href="#!user-create" class="navbar-brand btn btn-outline-success my-2 my-sm-0"  aria-live="assertive" ng-show="!authenticatedUser" >Zaloguj</a>
-      <a href="#!note-create" class="navbar-brand btn btn-outline-warning my-2 my-sm-0"  aria-live="assertive" ng-show="!authenticatedUser" >Zajeerestruj</a>
-      <a href="#!note-create" class="navbar-brand btn btn-outline-danger my-2 my-sm-0"  aria-live="assertive" ng-show="authenticatedUser">Wyloguj</a>
+      <a id = "buttonLogIn" href="login" class="navbar-brand btn btn-outline-success my-2 my-sm-0"  aria-live="assertive" ng-show="authenticated" >Zaloguj</a>
+      <a href="reject" class="navbar-brand btn btn-outline-warning my-2 my-sm-0"  aria-live="assertive" ng-show="authenticated" >Zajeerestruj</a>
+<!--      todo: write log out to comfortable testing -->
+      <a  class="navbar-brand btn btn-outline-danger my-2 my-sm-0" ng-click="ctrl.logout()" aria-live="assertive" ng-show="!authenticated">Wyloguj</a>
 
     </form>
 
 </nav>
-<label>{{$rootScope.authenticatedUser}}</label>
-<label>{{authenticatedUser}}</label>
-<label>siema</label>
+
+<label>Siema jak tam {{$rootScope.user.username}}</label>
+<label>Siema jak tam {{$rootScope.userName}}</label>
+<label>Siema jak tam {{$rootScope.userId}}</label>
+<label>Siema jak tam {{userId}}</label>
+<label>Siema jak tam {{userName}}</label>
+<label>Siema jak tam {{authenticated}}</label>
 
 <div ng-view></div>
+<!--<div ng-view ng-show="authenticatedUser"></div>-->
+<!--<div ng-view ng-show="!authenticatedUser"></div>-->
 
 </body>
 </html>

@@ -11,8 +11,8 @@ public class Note {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String question;
-    @Lob
-    @Column(name = "screen", columnDefinition = "BOLB")
-    private byte[] screen;
-    private String note;
+//    @Lob
+//    @Column(name = "screen", columnDefinition = "BOLB")
+//    private byte[] screen;
+//    private String note;
 }

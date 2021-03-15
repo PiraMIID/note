@@ -6,7 +6,6 @@
   "description": "",
   "main": "index.js",
   "license": "MIT",
-  "homepage": "",
   "dependencies": {
     "angular": "^1.7.4",
     "angular-resource": "^1.7.4",
