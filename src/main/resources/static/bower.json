@@ -7,6 +7,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.3.1",
     "angular": "^1.7.4",
     "angular-resource": "^1.7.4",
     "angular-route": "^1.7.4",

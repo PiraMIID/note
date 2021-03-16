@@ -41,13 +41,13 @@ angular.module('app')
     .constant('LOGIN_ENDPOINT', '/login')
     .constant('LOGOUT_ENDPOINT', '/logout')
     .constant('HOME_ENDPOINT', '/')
-    .controller('App', function ($rootScope) {
-        if($rootScope.authenticated) {
-            $rootScope.authenticated = false;
-        }
-
-    })
-    .controller('HomeController',function ($http, $rootScope) {$rootScope.authenticated = false;})
+    // .controller('App', function ($rootScope) {
+    //     if($rootScope.authenticated) {
+    //         $rootScope.authenticated = false;
+    //     }
+    //
+    // })
+    // .controller('HomeController',function ($http, $rootScope) {$rootScope.authenticated = false;})
     .service('AuthenticationService', function($http ,LOGIN_ENDPOINT, LOGOUT_ENDPOINT, $rootScope) {
         this.authenticate = function(credentials, successCallback) {
             var authHeader = {Authorization: 'Basic ' + btoa(credentials.username+':'+credentials.password)};

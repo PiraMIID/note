@@ -1,4 +1,4 @@
-// angular.module('app')
+angular.module('app');
 // .constant('USER_ENDPOINT', '/api/users/:id')
 // .constant('USER_ASSIGNMENTS_ENDPOINT', '/api/users/:id/assignments')
 // .factory('User', function($resource, USER_ENDPOINT, USER_ASSIGNMENTS_ENDPOINT) {

@@ -22,7 +22,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //    todo: change to load script before this function (nearly done)
     @Override
     protected void configure(HttpSecurity https) throws Exception {
-        ;
         https.httpBasic().and()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
@@ -30,7 +29,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin();
+                .formLogin()
+                .and()
+                .logout().logoutUrl("/logout");
     }
 
     @Override
