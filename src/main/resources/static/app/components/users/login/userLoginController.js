@@ -3,7 +3,7 @@ angular.module('app')
         var vm = this;
         vm.credentials = {};
         var loginSuccess = function () {
-            $rootScope.authenticated = true;
+            // $rootScope.authenticated = true;
             $location.path('/asset/list');
         }
         vm.login = function () {
@@ -12,7 +12,7 @@ angular.module('app')
     //todo: put AuthenticationService.logout(logoutSuccess); fix problem with logout
         var logoutSuccess = function () {
            AuthenticationService.logout(logoutSuccess);
-           $rootScope.authenticated = true;
+           $rootScope.authenticated = false;
            $location.path('/');}
 
            vm.logout = function () {

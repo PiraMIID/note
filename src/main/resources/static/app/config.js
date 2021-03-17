@@ -5,11 +5,10 @@ angular.module('app')
             templateUrl: "app/index.html",
             controller: 'HomeController',
             constructor: 'ctrl'
-
         })
-        .when('/reject', {
-            templateUrl: 'app/components/users/create/userReject.html',
-            controller: 'UserCreateController',
+        .when('/signup', {
+            templateUrl: 'app/components/users/create/userSignUp.html',
+            controller: 'SignupController',
             controllerAs: 'ctrl'
         })
         .when('/login', {
@@ -67,14 +66,16 @@ angular.module('app')
         }
         this.logout = function(successCallback) {
             $http.post(LOGOUT_ENDPOINT)
-                .then(successCallback());
+                .then(function logoutSuccess() {
+                    $rootScope.clear();
+                });
         }
     })
     .controller('AuthenticationController', function($rootScope, $location, AuthenticationService) {
         var vm = this;
         vm.credentials = {};
         var loginSuccess = function() {
-            $rootScope.authenticated = true;
+            $rootScope.authenticated = false;
             $location.path('/new');
         }
         vm.login = function() {
@@ -93,7 +94,7 @@ angular.module('app')
         console.log(vm.authenticated);
         console.log(3+1);
         if (!$rootScope.authenticated.includes) {
-            $rootScope.authenticated = false;
+            $rootScope.authenticated = true;
         }
     })
 ;

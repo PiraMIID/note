@@ -1,4 +1,4 @@
-package com.noteapp.user;
+package com.noteapp.config;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

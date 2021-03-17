@@ -9,7 +9,7 @@
 <!--  <script src="bower_components/popper.js/dist/umd/popper.js"></script>-->
   <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.css">
+  <link rel="stylesheet" href="bower_components/@fortawesome/fontawesome-free/css/all.css">
 
 <!--  <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>-->
 <!--  <link href="style.css" rel="stylesheet"/>-->
@@ -29,8 +29,8 @@
   <script src="app/services/noteServices.js"></script>
 
   <script src="app/user/login/userLoginController.js"></script>
-  <script src="app/user/create/userCreateController.js"></script>
-  <script src="app/user/create/userCreateController.js"></script>
+  <script src="app/user/create/userSignUpController.js"></script>
+  <script src="app/user/create/userSignUpController.js"></script>
 
   <script src="app/note/create/noteCreateController.js"></script>
   <script  src="app/note/edit/noteEditController.js"></script>
@@ -53,25 +53,16 @@
 
     <ul class="navbar-nav mr-auto"></ul>
     <form class="form-inline my-2 my-lg-0">
-      <a id = "buttonLogIn" href="login" class="navbar-brand btn btn-outline-success my-2 my-sm-0"  aria-live="assertive" ng-show="authenticated" >Zaloguj</a>
-      <a href="reject" class="navbar-brand btn btn-outline-warning my-2 my-sm-0"  aria-live="assertive" ng-show="authenticated" >Zajeerestruj</a>
+      <a id = "buttonLogIn" href="login" class="navbar-brand btn btn-outline-success my-2 my-sm-0"  aria-live="assertive" >Login</a>
+      <a href="signup" class="navbar-brand btn btn-outline-warning my-2 my-sm-0"  aria-live="assertive" >Sign Up</a>
 <!--      todo: write log out to comfortable testing -->
-      <a  class="navbar-brand btn btn-outline-danger my-2 my-sm-0" ng-click="ctrl.logout()" aria-live="assertive" ng-show="!authenticated">Wyloguj</a>
+      <a  class="navbar-brand btn btn-outline-danger my-2 my-sm-0" ng-click="ctrl.logout()" aria-live="assertive" >Logout</a>
 
     </form>
 
 </nav>
 
-<label>Siema jak tam {{$rootScope.user.username}}</label>
-<label>Siema jak tam {{$rootScope.userName}}</label>
-<label>Siema jak tam {{$rootScope.userId}}</label>
-<label>Siema jak tam {{userId}}</label>
-<label>Siema jak tam {{userName}}</label>
-<label>Siema jak tam {{authenticated}}</label>
-
 <div ng-view></div>
-<!--<div ng-view ng-show="authenticatedUser"></div>-->
-<!--<div ng-view ng-show="!authenticatedUser"></div>-->
 
 </body>
 </html>
