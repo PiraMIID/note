@@ -67,12 +67,12 @@ class UserRepositoryTest {
         user1.setAccountNonLocked(true);
         user1.setUsername("janedoe");
         user1.setId(123L);
-        this.underTest.<User>save(user);
-        this.underTest.<User>save(user1);
+        this.underTest.save(user);
+        this.underTest.save(user1);
         this.underTest.removeIfAccountIsNotConfirmAndTokenNotExist();
         List<User> findAllResult = this.underTest.findAll();
         assertTrue(findAllResult instanceof ArrayList);
-        assertEquals(2, ((ArrayList) findAllResult).size());
+        assertEquals(2, findAllResult.size());
         Object getResult = ((ArrayList) findAllResult).get(0);
         assertTrue(getResult instanceof User);
         Object getResult1 = ((ArrayList) findAllResult).get(1);

@@ -2,10 +2,7 @@ package com.noteapp.todos;
 
 import com.noteapp.user.User;
 import com.noteapp.user.UserRepository;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -21,7 +18,6 @@ public class TodoService {
 
     private final TodoRepository todoRepository;
     private final UserRepository userRepository;
-    private String username;
 
 
 
@@ -32,8 +28,6 @@ public class TodoService {
     }
 
     List<TodoDto> findAll(String username) {
-        System.out.println(username + " in Todo Service");
-        System.out.println(this.username);
         return todoRepository.findAllByUserUsername(username)
                 .stream()
                 .map(TodoMapper::toDto)
@@ -48,22 +42,26 @@ public class TodoService {
         return TodoMapper.toDto(saveTodo);
     }
 
-    public List<TodoDto> findAllByUsername(String username) {
-        List<Todo> todos = todoRepository.findAllByUserUsername(username);
+    List<TodoDto> findAllByUsername(String username) {
+        List<Todo> todos = todoRepository.findAllByUserUsername(getUsernameFromSecurity());
         return todos.stream()
                 .map(TodoMapper::toDto)
                 .collect(Collectors.toList());
 
     }
 
-    public TodoDto isDoneUpdate(Long id, boolean isDone) {
+    TodoDto isDoneUpdate(Long id, boolean isDone) {
         Todo one = todoRepository.getOne(id);
         one.setDone(isDone);
         Todo save = todoRepository.save(one);
         return TodoMapper.toDto(save);
     }
 
-    public void delete(Long id) {
+    void delete(Long id) {
         todoRepository.deleteById(id);
+    }
+
+    String getUsernameFromSecurity() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 }

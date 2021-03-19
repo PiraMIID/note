@@ -29,10 +29,14 @@ if you want change this look to Start class
 
 ## Images
 ![alt text](img_3.png)
+#mail to confirm account
+![alt text](img_2.png)
 
 ![alt text](img.png)
 
 ![alt text](img_1.png)
+
+
 
 
 

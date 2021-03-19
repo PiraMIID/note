@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AfterSaveNewUserAspect {
 
-    private TokenService tokenService;
+    private final TokenService tokenService;
 
     public AfterSaveNewUserAspect(TokenService tokenService) {
         this.tokenService = tokenService;
