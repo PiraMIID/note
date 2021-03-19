@@ -2,23 +2,31 @@
 <html data-ng-app="app">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-  <link rel="stylesheet" href="css/main.css">
-  <!-- Bootstrap -->
-  <script src=bower_components/jquery/dist/jquery.slim.js"></script>
-<!--  <script src="bower_components/popper.js/dist/umd/popper.js"></script>-->
-  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+  <title>asdasdasd</title>
+
+
+
+  <link rel="canonical" href="https://css-tricks.com/examples/DragAndDropFileUploading/">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="bower_components/@fortawesome/fontawesome-free/css/all.css">
 
-<!--  <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>-->
-<!--  <link href="style.css" rel="stylesheet"/>-->
+  <script src="bower_components/dist/jquery.js"></script>
+
+
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="css/main.css">
+  <!-- Bootstrap -->
+  <script src="bower_components/jquery/dist/jquery.slim.js"></script>
+  <script src="bower_components/popper.js/dist/umd/popper.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+
+
 
   <!-- Angular -->
-
-  <script  src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
-  <script  src="bower_components/angular-resource/angular-resource.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
+
 
   <!-- Application -->
   <script  src="app/index.js"></script>
@@ -28,19 +36,16 @@
   <script src="app/services/assetServices.js"></script>
   <script src="app/services/noteServices.js"></script>
 
-  <script src="app/user/login/userLoginController.js"></script>
-  <script src="app/user/create/userSignUpController.js"></script>
-  <script src="app/user/create/userSignUpController.js"></script>
+  <script src="app/components/users/login/userLoginController.js"></script>
+  <script src="app/components/user/create/userSignUpController.js"></script>
 
   <script src="app/note/create/noteCreateController.js"></script>
-  <script  src="app/note/edit/noteEditController.js"></script>
+  <script src="app/note/edit/noteEditController.js"></script>
 
 
 
 
-  <link rel="canonical" href="https://css-tricks.com/examples/DragAndDropFileUploading/">
 
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
 
 
 
@@ -53,14 +58,17 @@
 
     <ul class="navbar-nav mr-auto"></ul>
     <form class="form-inline my-2 my-lg-0">
-      <a id = "buttonLogIn" href="login" class="navbar-brand btn btn-outline-success my-2 my-sm-0"  aria-live="assertive" >Login</a>
-      <a href="signup" class="navbar-brand btn btn-outline-warning my-2 my-sm-0"  aria-live="assertive" >Sign Up</a>
+      <a id = "buttonLogIn" href="#!login" class="navbar-brand btn btn-outline-success my-2 my-sm-0"  aria-live="assertive" >Login</a>
+      <a href="#!signup" class="navbar-brand btn btn-outline-warning my-2 my-sm-0"  aria-live="assertive" >Sign Up</a>
 <!--      todo: write log out to comfortable testing -->
       <a  class="navbar-brand btn btn-outline-danger my-2 my-sm-0" ng-click="ctrl.logout()" aria-live="assertive" >Logout</a>
 
     </form>
 
 </nav>
+
+
+<h1>1 = {{1}}</h1>
 
 <div ng-view></div>
 

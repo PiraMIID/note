@@ -2,10 +2,12 @@ package com.noteapp.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistration;
@@ -22,13 +24,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity https) throws Exception {
-        https.httpBasic().and().logout().logoutUrl("/logout").and()
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .httpBasic().and()
+                .csrf().disable()   // (Cross Site Request Forgery) -
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/reject").permitAll()
-                .antMatchers("/login").permitAll()
-                .anyRequest().authenticated();
+                .antMatchers(HttpMethod.POST).authenticated().and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     @Override
