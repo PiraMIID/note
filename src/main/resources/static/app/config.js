@@ -1,5 +1,5 @@
 angular.module('app')
-.config(function($routeProvider, $httpProvider) {
+.config(function ($routeProvider, $httpProvider) {
     $routeProvider
         .when('/', {
             templateUrl: "app/index.html",
@@ -37,4 +37,3 @@ angular.module('app')
         });
     $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 });
-

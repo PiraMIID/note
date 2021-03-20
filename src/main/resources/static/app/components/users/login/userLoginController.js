@@ -1,15 +1,15 @@
 angular.module('app')
     .constant('LOGIN_ENDPOINT', '/login')
-    .service('AuthenticationService', function(value, $http, LOGIN_ENDPOINT) {
-        this.authenticate = function(credentials, successCallback) {
+    .service('AuthenticationService', function($http, LOGIN_ENDPOINT) {
+        console.log('1');
+        this.authenticate = function(credentials) {
+            console.log('3');
             var authHeader = {Authorization: 'Basic ' + btoa(credentials.username+':'+credentials.password)};
             var config = {headers: authHeader};
-            // var value = value;
             $http
                 .post(LOGIN_ENDPOINT, {}, config)
-                .then(function success(value) {
+                .then(function success() {
                     $http.defaults.headers.post.Authorization = authHeader.Authorization;
-                    successCallback("sight");
                 }, function error(reason) {
                     console.log('Login error');
                     console.log(reason);
@@ -21,11 +21,12 @@ angular.module('app')
         }
     })
     .controller('AuthenticationController', function($rootScope, $location, AuthenticationService) {
+        console.log('2');
         var vm = this;
         vm.credentials = {};
         var loginSuccess = function() {
             $rootScope.authenticated = true;
-            $location.path('/new');
+            $location.path('/');
         }
         vm.login = function() {
             AuthenticationService.authenticate(vm.credentials, loginSuccess);
@@ -38,4 +39,3 @@ angular.module('app')
             AuthenticationService.logout(logoutSuccess);
         }
     });
-

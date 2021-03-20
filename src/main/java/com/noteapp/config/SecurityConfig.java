@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
@@ -27,16 +28,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .httpBasic().and()
-                .csrf().disable()   // (Cross Site Request Forgery) -
+                .csrf().disable()
                 .authorizeRequests()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/").permitAll()
+                .antMatchers("/singup").permitAll()
+                .antMatchers("/").permitAll()
                 .antMatchers(HttpMethod.POST).authenticated().and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication().withUser("user").password("{noop}user").roles("USER");
+        auth.inMemoryAuthentication().withUser("user").password("user").roles("USER");
     }
 
 
