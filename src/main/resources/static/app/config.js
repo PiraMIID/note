@@ -1,11 +1,6 @@
 angular.module('app')
 .config(function ($routeProvider, $httpProvider) {
     $routeProvider
-        .when('/', {
-            templateUrl: "app/index.html",
-            controller: 'HomeController',
-            constructor: 'ctrl'
-        })
         .when('/signup', {
             templateUrl: 'app/components/users/create/userSignUp.html',
             controller: 'SignupController',
@@ -36,4 +31,5 @@ angular.module('app')
 
         });
     $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+    console.log('confing');
 });

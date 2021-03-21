@@ -2,8 +2,7 @@
 <html data-ng-app="app">
 <head>
   <meta charset="UTF-8">
-  <title>asdasdasd</title>
-
+  <title>note</title>
 
   <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="css/main.css">
@@ -14,10 +13,17 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.css">
 
-
+  <!-- Angular -->
   <script src="node_modules/angular/angular.js"></script>
   <script src="node_modules/angular-route/angular-route.js"></script>
   <script src="node_modules/angular-resource/angular-resource.js"></script>
+
+
+
+  <!-- Angular -->
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
 
 
   <!-- Application -->
@@ -41,28 +47,33 @@
 
 
 
+
+
+
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" aria-live="assertive" href="">FastNote</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" >
+  <a class="navbar-brand" aria-live="assertive" href="#!">FastNote</a>
 
 
 
     <ul class="navbar-nav mr-auto"></ul>
     <form class="form-inline my-2 my-lg-0">
-      <a id = "buttonLogIn" href="#!login" class="navbar-brand btn btn-outline-success my-2 my-sm-0"  aria-live="assertive" >Login</a>
-      <a href="#!signup" class="navbar-brand btn btn-outline-warning my-2 my-sm-0"  aria-live="assertive" >Sign Up</a>
-<!--      todo: write log out to comfortable testing -->
-      <a  class="navbar-brand btn btn-outline-danger my-2 my-sm-0" ng-click="ctrl.logout()" aria-live="assertive" >Logout</a>
+      <a href="#!note/new" class="navbar-brand btn btn-outline-success my-2 my-sm-0"  aria-live="assertive" ng-show="authenticated" >create new note</a>
+      <a href="#!note/list" class="navbar-brand btn btn-outline-success my-2 my-sm-0"  aria-live="assertive" ng-show="authenticated" >notes list</a>
+      <a href="#!login" class="navbar-brand btn btn-outline-success my-2 my-sm-0"  aria-live="assertive" ng-show="!authenticated" >Login</a>
+      <a href="#!signup" class="navbar-brand btn btn-outline-warning my-2 my-sm-0"  aria-live="assertive" ng-show="!authenticated">Sign Up</a>
+      <a  type="submit" class="navbar-brand btn btn-outline-danger my-2 my-sm-0" ng-click="[authenticated =  false, $http.defaults.headers.post.Authorization = null]" aria-live="assertive" ng-show="authenticated">Logout</a>
 
     </form>
 
 </nav>
 
 
-<h1>1 = {{1}}</h1>
+<h1>ctrl = {{ctrl}}</h1>
 
-<div ng-view></div>
+<div ng-view ></div>
+
 
 </body>
 </html>

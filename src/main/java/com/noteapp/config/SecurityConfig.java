@@ -26,20 +26,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         http
-                .httpBasic().and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/").permitAll()
-                .antMatchers("/singup").permitAll()
-                .antMatchers("/").permitAll()
-                .antMatchers(HttpMethod.POST).authenticated().and()
+                .antMatchers("/").permitAll().and()
+
+                .logout().logoutUrl("/logout").and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        System.out.println("1");
         auth.inMemoryAuthentication().withUser("user").password("{noop}user").roles("USER");
         auth.inMemoryAuthentication().withUser("user").password("user").roles("USER");
     }

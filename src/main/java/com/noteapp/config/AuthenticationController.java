@@ -12,6 +12,7 @@ public class AuthenticationController {
     @PostMapping("/login")
     @ResponseBody
     public Principal login(Principal user) {
+        System.out.println("3");
         return user;
     }
 }
