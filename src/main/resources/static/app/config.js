@@ -7,9 +7,11 @@ angular.module('app')
             controllerAs: 'ctrl'
         })
         .when('/login', {
+
             templateUrl: 'app/components/users/login/userLogin.html',
             controller: 'AuthenticationController',
-            controllerAs: 'ctrl'
+            controllerAs: 'ctrl',
+
         })
         .when('/asset/list', {
             templateUrl: 'app/components/panel/main/mainPanel.html',
@@ -17,13 +19,18 @@ angular.module('app')
             controllerAs: 'ctrl'
         })
         .when('/note/edit', {
-            templateUrl: 'app/components/note/edit/editNote.html',
+            templateUrl: 'app/components/assets/note/edit/editNote.html',
             controller: 'NoteController',
             controllerAs: 'ctrl'
         })
         .when('/note/new', {
-            templateUrl: 'app/components/note/create/noteCreate.html',
+            templateUrl: 'app/components/assets/note/create/noteCreate.html',
             controller: 'NoteController',
+            controllerAs: 'ctrl'
+        })
+        .when('/:username/asset/list',  {
+            templateUrl: 'app/components/assets/asset/list/assetList.html',
+            controller: 'AssetListController',
             controllerAs: 'ctrl'
         })
         .otherwise({

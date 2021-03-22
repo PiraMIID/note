@@ -1,6 +1,12 @@
 package com.noteapp.config;
 
+import com.noteapp.config.User;
+import com.noteapp.user.UserDaetis;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User,Long> {
+import java.util.Optional;
+
+public interface UserRepository extends JpaRepository<UserDaetis,Long> {
+
+    Optional<User> findByUsername(String username);
 }
