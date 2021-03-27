@@ -54,7 +54,8 @@
 
 
 </head>
-<body>
+<!--<body background="jpg/nota.jpg">-->
+<body >
 <nav class="navbar navbar-expand-lg navbar-light bg-light" >
   <a class="navbar-brand" aria-live="assertive" href="#!">FastNote</a>
 
@@ -62,6 +63,7 @@
 
     <ul class="navbar-nav mr-auto"></ul>
     <form class="form-inline my-2 my-lg-0">
+      <a href="#!/assets" class="navbar-brand btn-outline-danger my-2"  ng-show="authenticated" >{{username}}</a>
       <a href="#!note/new" class="navbar-brand btn btn-outline-primary my-2 my-sm-0"  aria-live="assertive" ng-show="authenticated" >create new note</a>
       <a href="#!{{username}}/assets" class="navbar-brand btn btn-outline-primary my-2 my-sm-0"  aria-live="assertive" ng-show="authenticated" >notes list</a>
       <a href="#!login" class="navbar-brand btn btn-outline-success my-2 my-sm-0"  aria-live="assertive" ng-show="!authenticated" >Login</a>
@@ -70,8 +72,9 @@
     </form>
 </nav>
 
+
 <div ng-view></div>
 
-
+</script>
 </body>
 </html>

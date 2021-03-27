@@ -10,7 +10,7 @@ angular.module('app')
 
             templateUrl: 'app/components/users/login/userLogin.html',
             controller: 'AuthenticationController',
-            controllerAs: 'ctrl',
+            controllerAs: 'ctrl'
 
         })
         .when('/asset/list', {
@@ -39,3 +39,5 @@ angular.module('app')
     $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
     console.log('config');
 });
+
+

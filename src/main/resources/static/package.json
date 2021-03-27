@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.3",
     "angular": "^1.8.2",
     "angular-resource": "^1.8.2",
     "angular-route": "^1.8.2",

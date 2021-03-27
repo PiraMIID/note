@@ -15,6 +15,6 @@ public class Assets {
     private String description;
     private String category;
     //i must to better understand this
-    @OneToOne
+    @OneToOne(mappedBy = "assets")
     private User user;
 }

@@ -24,9 +24,9 @@ public class User implements UserDetails{
     private String password;
     private String role;
 //    private String test;
-//    @OneToOne
+    @OneToOne
 //    @MapsId
-//    private Assets assets;
+    private Assets assets;
 
 
     @Override

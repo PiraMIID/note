@@ -1,6 +1,6 @@
 angular.module('app')
     .constant('LOGIN_ENDPOINT', '/login')
-    .service('AuthenticationService', function($http, LOGIN_ENDPOINT) {
+    .service('AuthenticationService', function($http,$rootScope, LOGIN_ENDPOINT) {
         console.log('1');
         // delete $http.defaults.headers.post.Authorization;
         this.authenticate = function(credentials, successCallback, errorCallback) {
@@ -12,6 +12,9 @@ angular.module('app')
                 .then(function success(response)  {
                     console.log('value:');
                     console.log(response);
+                    // $http.defaults.headers.get.Authorization = authHeader.Authorization;
+                    $rootScope.userid = response.data.principal.id;
+                    console.log('value:'+ response.data.principal.id);
                     $http.defaults.headers.post.Authorization = authHeader.Authorization;
                     successCallback();
 
