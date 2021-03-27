@@ -1,24 +1,20 @@
-package com.noteapp.asset;
+package com.noteapp.assets;
 
 import com.noteapp.config.User;
-import com.noteapp.note.Note;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @Entity
-public class Asset {
+public class Assets {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String description;
     private String category;
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    //i must to better understand this
+    @OneToOne
     private User user;
 }

@@ -28,15 +28,14 @@ angular.module('app')
             controller: 'NoteController',
             controllerAs: 'ctrl'
         })
-        .when('/:username/asset/list',  {
+        .when('/:username/assets',  {
             templateUrl: 'app/components/assets/asset/list/assetList.html',
             controller: 'AssetListController',
             controllerAs: 'ctrl'
         })
         .otherwise({
             redirectTo: '/login',
-
         });
     $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
-    console.log('confing');
+    console.log('config');
 });

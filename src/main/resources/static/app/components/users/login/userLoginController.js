@@ -27,7 +27,7 @@ angular.module('app')
             successCallback();
         }
     })
-    .controller('AuthenticationController', function($http, $rootScope, $location, AuthenticationService) {
+    .controller('AuthenticationController', function($routeParams,$http, $rootScope, $location, AuthenticationService) {
         console.log('2');
         var vm = this;
         vm.msg = '';
@@ -37,7 +37,7 @@ angular.module('app')
             $rootScope.authenticated = true;
             $rootScope.username = vm.credentials.username;
             console.log($rootScope.username);
-            $location.path('/'+$rootScope.username+'/asset/list');
+            $location.path('/'+$rootScope.username+'/assets');
         }
         var errorCallback = function () {
             vm.msg = 'WRONG DATA !';

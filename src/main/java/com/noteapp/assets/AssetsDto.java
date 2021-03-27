@@ -1,8 +1,8 @@
-package com.noteapp.asset;
+package com.noteapp.assets;
 
 import com.noteapp.config.User;
 
-public class AssetDto {
+public class AssetsDto {
 
     private Long id;
     private String name;
@@ -12,6 +12,17 @@ public class AssetDto {
 
     public Long getId() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return "AssetsDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", category='" + category + '\'' +
+                ", user=" + user +
+                '}';
     }
 
     public void setId(Long id) {

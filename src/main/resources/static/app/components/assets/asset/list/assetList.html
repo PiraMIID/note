@@ -1,4 +1,5 @@
-<div class="container ng-scope" >
+<div class="container" >
+
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <div class="form">
@@ -27,19 +28,19 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="asset in ctrl.assets">
-                    <th scope="row">{{asset.id}}</th>
-                    <td>{{asset.name}}</td>
-                    <td>{{asset.description}}</td>
-                    <td>{{asset.category}}</td>
+                <tr ng-repeat="assets in ctrl.assets">
+                    <th scope="row">{{assets.id}}</th>
+                    <td>{{assets.name}}</td>
+                    <td>{{assets.description}}</td>
+                    <td>{{assets.category}}</td>
                     <td>
                         <button class="btn btn-sm btn-primary" title="Edytuj">
-                            <a ng-href="#!asset-edit/{{asset.id}}" class="text-white">
+                            <a ng-href="#!assets-edit/{{assets.id}}" class="text-white">
                                 <i class="fas fa-edit"></i>
                             </a>
                         </button>
                         <button class="btn btn-sm btn-warning" title="Historia wypożyczeń">
-                            <a ng-href="#!asset-history/{{asset.id}}" class="text-white">
+                            <a ng-href="#!assets-history/{{assets.id}}" class="text-white">
                                 <i class="fas fa-history"></i>
                             </a>
                         </button>
@@ -53,6 +54,7 @@
         </div>
     </div>
     <div class="row">
-        <a ng-href="#!asset-add" class="btn btn-primary mb-3">Dodaj wyposażenie</a>
+        <a ng-href="#!assets-add" class="btn btn-primary mb-3">Dodaj wyposażenie</a>
     </div>
+    <div>{{ctrl}}</div>
 </div>
