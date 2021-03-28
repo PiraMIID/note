@@ -11,7 +11,6 @@ angular.module('app')
             templateUrl: 'app/components/users/login/userLogin.html',
             controller: 'AuthenticationController',
             controllerAs: 'ctrl'
-
         })
         .when('/asset/list', {
             templateUrl: 'app/components/panel/main/mainPanel.html',

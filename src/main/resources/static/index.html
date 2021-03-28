@@ -52,25 +52,34 @@
 
 
 
-
 </head>
 <!--<body background="jpg/nota.jpg">-->
 <body >
 <nav class="navbar navbar-expand-lg navbar-light bg-light" >
-  <a class="navbar-brand" aria-live="assertive" href="#!">FastNote</a>
+  <h3 href="#!" class="font-italic" aria-live="assertive"  > FASTNOTE </h3>
+
+  <ul class="navbar-nav mc align-content-md-center"></ul>
+  <form class="form-inline ml-5 my-2 my-lg-0">
+
+    <a href="#!{{username}}/assets" class="navbar-brand  mx-md-4 align-self-center" aria-live="assertive" ng-show="authenticated" ><i class="fas fa-align-justify"></i> Notes list</a>
+    <a href="#!{{username}}/assets" class="navbar-brand  mx-md-4 align-self-center" aria-live="assertive" ng-show="authenticated" ><i class="fas fa-pen-alt"></i> Exams</a>
+    <a href="#!{{username}}/assets" class="navbar-brand  mx-md-4 align-self-center" aria-live="assertive" ng-show="authenticated" ><i class="fas fa-list"></i> To do</a>
+  </form>
 
 
 
-    <ul class="navbar-nav mr-auto"></ul>
-    <form class="form-inline my-2 my-lg-0">
-      <a href="#!/assets" class="navbar-brand btn-outline-danger my-2"  ng-show="authenticated" >{{username}}</a>
-      <a href="#!note/new" class="navbar-brand btn btn-outline-primary my-2 my-sm-0"  aria-live="assertive" ng-show="authenticated" >create new note</a>
-      <a href="#!{{username}}/assets" class="navbar-brand btn btn-outline-primary my-2 my-sm-0"  aria-live="assertive" ng-show="authenticated" >notes list</a>
-      <a href="#!login" class="navbar-brand btn btn-outline-success my-2 my-sm-0"  aria-live="assertive" ng-show="!authenticated" >Login</a>
-      <a href="#!signup" class="navbar-brand btn btn-outline-warning my-2 my-sm-0"  aria-live="assertive" ng-show="!authenticated">Sign Up</a>
-      <a href="#!logout" type="submit" class="navbar-brand btn btn-outline-danger my-2 my-sm-0" ng-click="[authenticated =  false, $http.defaults.headers.post.Authorization = null]" aria-live="assertive" ng-show="authenticated">Logout</a>
-    </form>
+  <ul class="navbar-nav mr-auto"></ul>
+  <form class="form-inline my-2 my-lg-0">
+    <a href="#!login" class="navbar-brand  nav-link"  aria-live="assertive" ng-show="!authenticated" ><i class="fas fa-user"></i> Login</a>
+    <a href="#!signup" class="navbar-brand  nav-link"  aria-live="assertive" ng-show="!authenticated"><i class="fas fa-user-edit"></i> Sign Up</a>
+
+    <a href="#!/assets" class="navbar-brand mx-md-5 nav-link "  ng-show="authenticated" ><i class="fas fa-user-graduate"></i> {{username}} </a>
+    <a href="#!logout" type="submit" class="navbar-brand  " ng-click="[authenticated =  false, $http.defaults.headers.post.Authorization = null]" aria-live="assertive" ng-show="authenticated"> <i class="fas fa-door-open"></i></a>
+  </form>
 </nav>
+
+
+
 
 
 <div ng-view></div>

@@ -1,3 +1,22 @@
+nav a {
+    text-align: center;
+}
+a:after{
+    content: '';
+    display: block;
+    height: 1.5px;
+    background: black;
+    transform: scaleX(0);
+    transition: transform .3s;
+}
+a:hover:after{
+    transform: scaleX(1);
+    transition: transform .3s;
+}
+.active{
+    color: #FBC02D !important;
+}
+
 img {
     display: block;
     margin-left: auto;
