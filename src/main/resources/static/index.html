@@ -38,7 +38,7 @@
 
   <script src="app/components/users/login/userLoginController.js"></script>
   <script src="app/components/user/create/userSignUpController.js"></script>
-  <script src="app/components/assets/asset/list/assetListController.js"></script>
+  <script src="app/components/notes/asset/list/assetListController.js"></script>
 
   <script src="app/note/create/noteCreateController.js"></script>
   <script src="app/note/edit/noteEditController.js"></script>
@@ -61,9 +61,9 @@
   <ul class="navbar-nav mc align-content-md-center"></ul>
   <form class="form-inline ml-5 my-2 my-lg-0">
 
-    <a href="#!{{username}}/assets" class="navbar-brand  mx-md-4 align-self-center" aria-live="assertive" ng-show="authenticated" ><i class="fas fa-align-justify"></i> Notes list</a>
-    <a href="#!{{username}}/assets" class="navbar-brand  mx-md-4 align-self-center" aria-live="assertive" ng-show="authenticated" ><i class="fas fa-pen-alt"></i> Exams</a>
-    <a href="#!{{username}}/assets" class="navbar-brand  mx-md-4 align-self-center" aria-live="assertive" ng-show="authenticated" ><i class="fas fa-list"></i> To do</a>
+    <a href="#!{{username}}/notes" class="navbar-brand  mx-md-4 align-self-center" aria-live="assertive" ng-show="authenticated" ><i class="fas fa-align-justify"></i> Notes list</a>
+    <a href="#!{{username}}/notes" class="navbar-brand  mx-md-4 align-self-center" aria-live="assertive" ng-show="authenticated" ><i class="fas fa-pen-alt"></i> Exams</a>
+    <a href="#!{{username}}/notes" class="navbar-brand  mx-md-4 align-self-center" aria-live="assertive" ng-show="authenticated" ><i class="fas fa-list"></i> To do</a>
   </form>
 
 
@@ -73,7 +73,7 @@
     <a href="#!login" class="navbar-brand  nav-link"  aria-live="assertive" ng-show="!authenticated" ><i class="fas fa-user"></i> Login</a>
     <a href="#!signup" class="navbar-brand  nav-link"  aria-live="assertive" ng-show="!authenticated"><i class="fas fa-user-edit"></i> Sign Up</a>
 
-    <a href="#!/assets" class="navbar-brand mx-md-5 nav-link "  ng-show="authenticated" ><i class="fas fa-user-graduate"></i> {{username}} </a>
+    <a href="#!/notes" class="navbar-brand mx-md-5 nav-link "  ng-show="authenticated" ><i class="fas fa-user-graduate"></i> {{username}} </a>
     <a href="#!logout" type="submit" class="navbar-brand  " ng-click="[authenticated =  false, $http.defaults.headers.post.Authorization = null]" aria-live="assertive" ng-show="authenticated"> <i class="fas fa-door-open"></i></a>
   </form>
 </nav>

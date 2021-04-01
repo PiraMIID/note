@@ -1,8 +1,6 @@
 package com.noteapp.config;
 
-import com.noteapp.assets.Assets;
 import lombok.Data;
-import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +12,7 @@ import java.util.Collections;
 
 @Data
 @Entity
+@Table(name = "user_details")
 public class User implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,9 +23,9 @@ public class User implements UserDetails{
     private String password;
     private String role;
 //    private String test;
-    @OneToOne
+//    @OneToOne
 //    @MapsId
-    private Assets assets;
+//    private Assets assets;
 
 
     @Override

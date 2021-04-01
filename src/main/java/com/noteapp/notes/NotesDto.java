@@ -1,13 +1,17 @@
-package com.noteapp.assets;
+package com.noteapp.notes;
 
 import com.noteapp.config.User;
 
-public class AssetsDto {
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+public class NotesDto {
 
     private Long id;
     private String name;
     private String description;
     private String category;
+    private LocalDateTime createdAt;
     private User user;
 
     public Long getId() {
@@ -59,5 +63,13 @@ public class AssetsDto {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }

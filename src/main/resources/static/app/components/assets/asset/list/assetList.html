@@ -28,19 +28,19 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="assets in ctrl.assets">
-                    <th scope="row">{{assets.id}}</th>
-                    <td>{{assets.name}}</td>
-                    <td>{{assets.description}}</td>
-                    <td>{{assets.category}}</td>
+                <tr ng-repeat="notes in ctrl.notes">
+                    <th scope="row">{{notes.id}}</th>
+                    <td>{{notes.name}}</td>
+                    <td>{{notes.description}}</td>
+                    <td>{{notes.category}}</td>
                     <td>
                         <button class="btn btn-sm btn-primary" title="Edytuj">
-                            <a ng-href="#!assets-edit/{{assets.id}}" class="text-white">
+                            <a ng-href="#!notes-edit/{{notes.id}}" class="text-white">
                                 <i class="fas fa-edit"></i>
                             </a>
                         </button>
                         <button class="btn btn-sm btn-warning" title="Historia wypożyczeń">
-                            <a ng-href="#!assets-history/{{assets.id}}" class="text-white">
+                            <a ng-href="#!notes-history/{{notes.id}}" class="text-white">
                                 <i class="fas fa-history"></i>
                             </a>
                         </button>

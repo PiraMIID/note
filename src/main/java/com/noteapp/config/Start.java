@@ -1,14 +1,14 @@
 package com.noteapp.config;
 
-import com.noteapp.assets.Assets;
-import com.noteapp.assets.AssetsRepository;
+import com.noteapp.notes.Notes;
+import com.noteapp.notes.NotesRepository;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.password.PasswordEncoder;;import java.util.Arrays;
+import org.springframework.security.crypto.password.PasswordEncoder;;import java.time.LocalDateTime;
 
 @Configuration
 public class Start {
 
-    public Start(AssetsRepository assetsRepository,UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public Start(NotesRepository notesRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
 
         User appUser = new User();
 
@@ -17,29 +17,29 @@ public class Start {
         appUser.setRole("ROLE_USER");
         userRepository.save(appUser);
 
-        Assets assetsUser = new Assets();
+        Notes notesUser = new Notes();
 
-        assetsUser.setName("nota 1");
-        assetsUser.setDescription("opis");
-        assetsUser.setCategory("category");
-//        assetsUser.setUser(appUser);
-        assetsRepository.save(assetsUser);
+        notesUser.setName("nota 1");
+        notesUser.setDescription("opis");
+        notesUser.setCreatedAt(LocalDateTime.now());
+        notesUser.setUser(appUser);
+        notesRepository.save(notesUser);
 
-        Assets assetsUser0 = new Assets();
+        Notes notesUser0 = new Notes();
 
-        assetsUser0.setName("nota 2");
-        assetsUser0.setDescription("opis");
-        assetsUser0.setCategory("category");
-//        assetsUser0.setUser(appUser);
-        assetsRepository.save(assetsUser0);
+        notesUser0.setName("nota 2");
+        notesUser0.setDescription("opis");
+        notesUser0.setCreatedAt(LocalDateTime.now());
+        notesUser0.setUser(appUser);
+        notesRepository.save(notesUser0);
 
-        Assets assetsUser1 = new Assets();
+        Notes notesUser1 = new Notes();
 
-        assetsUser1.setName("nota 3");
-        assetsUser1.setDescription("opis");
-        assetsUser1.setCategory("category");
-//        assetsUser1.setUser(appUser);
-        assetsRepository.save(assetsUser1);
+        notesUser1.setName("nota 3");
+        notesUser1.setDescription("opis");
+        notesUser1.setCreatedAt(LocalDateTime.now());
+        notesUser1.setUser(appUser);
+        notesRepository.save(notesUser1);
 
 
 
