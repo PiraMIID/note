@@ -1,10 +1,12 @@
 package com.noteapp.notes;
 
 import com.noteapp.config.User;
+import com.noteapp.note.Note;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Data
@@ -21,10 +23,15 @@ public class Notes {
             columnDefinition = "TIMESTAMP WITHOUT TIME ZONE"
     )
     private LocalDateTime createdAt;
+
+    @OneToMany(
+            mappedBy = "notes",
+            cascade = CascadeType.ALL
+    )
+    private List <Note> notes;
     @ManyToOne
     @JoinColumn(
             name = "user_id",
-            nullable = false,
             referencedColumnName = "id",
             foreignKey = @ForeignKey(
                 name = "user_notes_fk"
