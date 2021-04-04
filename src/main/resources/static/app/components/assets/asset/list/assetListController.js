@@ -1,14 +1,16 @@
 angular.module('app')
     .constant('ASSETS_ASSIGNMENTS_ENDPOINT','/:username/assets')
-    .factory('Assets', function($resource,  ASSETS_ASSIGNMENTS_ENDPOINT) {
+    .factory('Notes', function($resource,$http,$rootScope,  ASSETS_ASSIGNMENTS_ENDPOINT) {
         return $resource(ASSETS_ASSIGNMENTS_ENDPOINT);
     })
-    .service('AssetsService', function (Assets) {
+    .service('AssetsService', function (Notes) {
         this.getAll = function () {
-            return Assets.query();
+            return Notes.query();
         }
     })
-.controller('AssetListController',function (AssetsService) {
+    .controller('AssetListController',function ($routeParams,$http, $rootScope, $location, AssetsService) {
         var vm = this;
-        vm.assets = AssetsService.getAll();
-});
+        console.log('AssetListController');
+        vm.notes = AssetsService.getAll();
+        console.log('notes = ' + vm.notes);
+    });
