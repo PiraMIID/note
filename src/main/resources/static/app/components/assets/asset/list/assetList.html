@@ -23,7 +23,7 @@
                     <th scope="col" style="width: 5%">#</th>
                     <th scope="col" style="width: 15%">Nazwa</th>
                     <th scope="col" style="width: 35%">Opis</th>
-                    <th scope="col" style="width: 15%">Kategoria</th>
+                    <th scope="col" style="width: 15%">Stworzono</th>
                     <th scope="col" style="width: 15%">Akcja</th>
                 </tr>
                 </thead>
@@ -32,7 +32,7 @@
                     <th scope="row">{{notes.id}}</th>
                     <td>{{notes.name}}</td>
                     <td>{{notes.description}}</td>
-                    <td>{{notes.category}}</td>
+                    <td>{{notes.createdAt}}</td>
                     <td>
                         <button class="btn btn-sm btn-primary" title="Edytuj">
                             <a ng-href="#!notes-edit/{{notes.id}}" class="text-white">

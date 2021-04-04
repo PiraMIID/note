@@ -25,16 +25,17 @@ public class User implements UserDetails{
     @NotBlank
     private String password;
     private String role;
-    @OneToMany(
-            mappedBy = "user",
-            fetch = FetchType.LAZY
-    )
-    List<Notes> notes;
-    @OneToMany(
-            mappedBy = "user",
-            fetch = FetchType.LAZY
-    )
-    List<Todos> todos;
+
+//    @OneToMany(
+//            mappedBy = "user",
+//            fetch = FetchType.LAZY
+//    )
+//    List<Notes> notes;
+//    @OneToMany(
+//            mappedBy = "user",
+//            fetch = FetchType.LAZY
+//    )
+//    List<Todos> todos;
 //    private String test;
 //    @OneToOne
 //    @MapsId

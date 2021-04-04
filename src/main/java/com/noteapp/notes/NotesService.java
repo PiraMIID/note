@@ -23,11 +23,11 @@ public class NotesService {
 
     public List<NotesDto> getList() {
 //        Long userId = userRepository.findUserIdByUsername(userName);
-        System.out.println("wszytko :" + notesRepository.findAll());
-        System.out.println(notesRepository.findAll()
-                .stream()
-                .map(NotesMapper::toDto)
-                .collect(Collectors.toList()));
+//        System.out.println("wszytko :" + notesRepository.findAll());
+//        System.out.println(notesRepository.findAll()
+//                .stream()
+//                .map(NotesMapper::toDto)
+//                .collect(Collectors.toList()));
 //        return assetsRepository.findAllByUserId(userId)
 //                .stream()
 //                .map(AssetsMapper::toDto)
