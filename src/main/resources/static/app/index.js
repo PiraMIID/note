@@ -1,14 +1,12 @@
 'use strict';
-angular.module('app', [ 'ngRoute','ngResource']);
+angular.module('app', ['ngRoute', 'ngResource', ]);
 
-var linkClicked = document.getElementsByClassName('nav-link');
-var numClass = linkClicked.length;
 
-for (var i = 0; i < numClass; i++) {
-    linkClicked[i].addEventListener('click', function(){
-        var onTheMoment = document.getElementsByClassName('active');
-        onTheMoment[0].className = onTheMoment[0].className.replace(' active', '');
-        this.className += ' active';
-    }, false);
-}
+    // //todo: in this function will be chceked JWT key and use user name ass well may use id
+    // //1. check then user have jwt in the store
+    // //2. if have then get to server which will response with user name if jwt is correct and still active
+
+
+
+
 

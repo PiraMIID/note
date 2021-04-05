@@ -13,10 +13,15 @@ angular.module('app')
                     console.log('value:');
                     console.log(response);
                     // $http.defaults.headers.get.Authorization = authHeader.Authorization;
-                    $rootScope.userid = response.data.principal.id;
+                    $rootScope.userId = response.data.principal.id;
+                    sessionStorage.setItem("user_id", $rootScope.userid);
                     console.log('value:'+ response.data.principal.id);
                     $http.defaults.headers.post.Authorization = authHeader.Authorization;
                     successCallback();
+                    localStorage.setItem("JwtToken","xddddddddddddd");
+                    console.log($rootScope)
+                    sessionStorage.setItem("session_note", $rootScope);
+                    sessionStorage.setItem("session_note", $rootScope);
 
                 }, function error(reason) {
                     console.log('Login error');
@@ -31,6 +36,7 @@ angular.module('app')
         }
     })
     .controller('AuthenticationController', function($routeParams,$http, $rootScope, $location, AuthenticationService) {
+
         console.log('2');
         var vm = this;
         vm.msg = '';
@@ -38,8 +44,11 @@ angular.module('app')
         var loginSuccess = function() {
             console.log('Wtaj przyjacielu mojej kozy! xd')
             $rootScope.authenticated = true;
+            // sessionStorage.setItem("au", $rootScope.userid);
             $rootScope.username = vm.credentials.username;
+            sessionStorage.setItem("username", $rootScope.username);
             console.log($rootScope.username);
+
             $location.path('/'+$rootScope.username+'/assets');
         }
         var errorCallback = function () {

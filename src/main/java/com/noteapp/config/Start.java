@@ -60,10 +60,10 @@ public class Start {
 
 
         Faker faker = new Faker();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 2; i++) {
             Notes notes = addNotes(faker,appUser);
             notesRepository.save(notes);
-            for (int j = 0; j < 20; j++) {
+            for (int j = 0; j < 2; j++) {
                 addNoteToNotes(faker,notes,noteRepository);
 
             }

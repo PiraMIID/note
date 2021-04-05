@@ -3,6 +3,7 @@ package com.noteapp.config;
 import com.noteapp.notes.Notes;
 import com.noteapp.todos.Todos;
 import lombok.Data;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,6 +26,7 @@ public class User implements UserDetails{
     @NotBlank
     private String password;
     private String role;
+    private String jwt;
 
 //    @OneToMany(
 //            mappedBy = "user",

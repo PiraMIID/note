@@ -34,7 +34,7 @@ public class NotesResource {
     @GetMapping("/assets")
     public ResponseEntity<List<NotesDto>> ggetAll() {
 //        System.out.println("easy");
-        return new ResponseEntity<>(notesService.getList().subList(0,20), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(notesService.getList(), HttpStatus.ACCEPTED);
     }
 
 //    @GetMapping("/app/components/assets/asset/list/assetList.html")
