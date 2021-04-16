@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class TodoRequest {
 
-    private final Todo todo;
+    private final TodoDto todo;
 
-    public TodoRequest(@JsonProperty("todo") Todo todo) {
+    public TodoRequest(@JsonProperty("todo") TodoDto todo) {
         this.todo = todo;
     }
 

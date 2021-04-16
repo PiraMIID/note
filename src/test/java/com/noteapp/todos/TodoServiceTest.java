@@ -47,14 +47,14 @@ class TodoServiceTest {
         Todo todo1 = new Todo("Test2", "Write good test", true, user);
         Todo todo2 = new Todo("Test3", "Write good test", true, user);
 
-        Todo[] todosArray = new Todo[] {todo, todo1, todo2};
-        List<Todo> todos = List.copyOf(Arrays.asList(todosArray));
+        List<Todo> todos = List.of(todo,todo1, todo2);
+
         given(todoRepository.findAllByUserId(1L)).willReturn(todos);
 
         // When
         // Then
 
-        assertThat(todos).containsExactly(todosArray);
+        assertThat(todos).containsExactly(todo2);
 
         assertThat(todos).contains(todo1);
 

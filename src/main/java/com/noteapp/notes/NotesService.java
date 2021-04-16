@@ -24,4 +24,10 @@ public class NotesService {
                 .map(NotesMapper::toDto)
                 .collect(Collectors.toList());
     }
+
+    public NotesDto save(NotesDto notesDto) {
+        Notes notes = NotesMapper.toEntity(notesDto);
+        Notes save = notesRepository.save(notes);
+        return NotesMapper.toDto(save);
+    }
 }

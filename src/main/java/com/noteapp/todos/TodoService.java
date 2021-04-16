@@ -24,6 +24,9 @@ public class TodoService {
                 .collect(Collectors.toList());
     }
 
-    TodoDto save(TodoDto todo) {
+    TodoDto save(TodoDto todoDto) {
+        Todo todo = TodoMapper.toEntity(todoDto);
+        Todo saveTodo = todoRepository.save(todo);
+        return TodoMapper.toDto(saveTodo);
     }
 }
