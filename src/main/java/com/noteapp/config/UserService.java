@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 
 @Service
 public class UserService implements UserDetailsService {
+
     private UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {

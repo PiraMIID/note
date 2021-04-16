@@ -1,6 +1,7 @@
 angular.module('app')
 .config(function ($routeProvider, $httpProvider) {
     $routeProvider
+        //User
         .when('/signup', {
             templateUrl: 'app/components/users/create/userSignUp.html',
             controller: 'SignupController',
@@ -12,24 +13,52 @@ angular.module('app')
             controller: 'AuthenticationController',
             controllerAs: 'ctrl'
         })
-        .when('/asset/list', {
-            templateUrl: 'app/components/panel/main/mainPanel.html',
-            controller: 'AssetController',
+        //notes
+        .when('/api/notes',  {
+            templateUrl: 'app/components/api/notes/list/notesList.html',
+            controller: 'NotesListController',
             controllerAs: 'ctrl'
         })
-        .when('/note/edit', {
-            templateUrl: 'app/components/assets/note/edit/editNote.html',
-            controller: 'NoteController',
+        .when('/api/notes/edit',  {
+            templateUrl: 'app/components/api/notes/edit/notesEdit.html',
+            controller: 'NotesEditController',
             controllerAs: 'ctrl'
         })
-        .when('/note/new', {
-            templateUrl: 'app/components/assets/note/create/noteCreate.html',
-            controller: 'NoteController',
+        .when('/api/notes',  {
+            templateUrl: 'app/components/api/notes/create/notesCreate.html',
+            controller: 'NotesCreateController',
             controllerAs: 'ctrl'
         })
-        .when('/:username/assets',  {
-            templateUrl: 'app/components/assets/asset/list/assetList.html',
-            controller: 'AssetListController',
+        //note
+        .when('/api/note',  {
+            templateUrl: 'app/components/api/note/list/noteList.html',
+            controller: 'NoteListController',
+            controllerAs: 'ctrl'
+        })
+        .when('/api/note/:id/edit',  {
+            templateUrl: 'app/components/api/note/edit/noteEdit.html',
+            controller: 'NoteEditController',
+            controllerAs: 'ctrl'
+        })
+        .when('/api/note/create',  {
+            templateUrl: 'app/components/api/note/create/noteCreate.html',
+            controller: 'NoteCreateController',
+            controllerAs: 'ctrl'
+        })
+        //todoo
+        .when('/api/todo',  {
+            templateUrl: 'app/components/api/todo/list/todoList.html',
+            controller: 'todoListController',
+            controllerAs: 'ctrl'
+        })
+        .when('/api/todo/edit',  {
+            templateUrl: 'app/components/api/todo/edit/todoEdit.html',
+            controller: 'todoEditController',
+            controllerAs: 'ctrl'
+        })
+        .when('/api/todo',  {
+            templateUrl: 'app/components/api/todo/create/todoCreate.html',
+            controller: 'todoCreateController',
             controllerAs: 'ctrl'
         })
         .otherwise({

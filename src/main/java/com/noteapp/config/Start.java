@@ -5,17 +5,12 @@ import com.noteapp.note.Note;
 import com.noteapp.note.NoteRepository;
 import com.noteapp.notes.Notes;
 import com.noteapp.notes.NotesRepository;
-import com.noteapp.todos.Todos;
-import com.noteapp.todos.TodosRepository;
+import com.noteapp.todos.Todo;
+import com.noteapp.todos.TodoRepository;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.w3c.dom.Node;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.util.Date;
-import java.util.Locale;
 
 @Configuration
 public class Start {
@@ -24,7 +19,7 @@ public class Start {
                  UserRepository userRepository,
                  PasswordEncoder passwordEncoder,
                  NoteRepository noteRepository,
-                 TodosRepository todosRepository) {
+                 TodoRepository todoRepository) {
 
         User appUser = new User();
 
@@ -60,14 +55,14 @@ public class Start {
 
 
         Faker faker = new Faker();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 10; i++) {
             Notes notes = addNotes(faker,appUser);
             notesRepository.save(notes);
-            for (int j = 0; j < 20; j++) {
+            for (int j = 0; j < 5; j++) {
                 addNoteToNotes(faker,notes,noteRepository);
 
             }
-            addTodos(faker,appUser,todosRepository);
+            addTodos(faker,appUser, todoRepository);
         }
     }
 
@@ -88,13 +83,13 @@ public class Start {
         noteRepository.save(note);
     }
 
-    void addTodos(Faker faker,User user,TodosRepository todosRepository) {
-        Todos todos = new Todos();
-        todos.setName(faker.job().keySkills());
-        todos.setDone(faker.bool().bool());
-        todos.setUser(user);
-        todos.setValue(faker.lorem().sentence(10));
-        todosRepository.save(todos);
+    void addTodos(Faker faker, User user, TodoRepository todoRepository) {
+        Todo todo = new Todo();
+        todo.setName(faker.job().keySkills());
+        todo.setDone(faker.bool().bool());
+        todo.setUser(user);
+        todo.setValue(faker.lorem().sentence(10));
+        todoRepository.save(todo);
     }
 
 }
