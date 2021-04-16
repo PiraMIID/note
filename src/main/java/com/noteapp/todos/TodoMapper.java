@@ -3,7 +3,7 @@ package com.noteapp.todos;
 public class TodoMapper {
 
 
-    public Todo toEntity(TodoDto dto) {
+    public static Todo toEntity(TodoDto dto) {
         Todo todo = new Todo();
         todo.setName(dto.getName());
         todo.setValue(dto.getValue());

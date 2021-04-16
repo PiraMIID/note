@@ -51,7 +51,6 @@
 
 
 
-
 </head>
 <!--<body background="jpg/nota.jpg">-->
 <body >
@@ -74,7 +73,8 @@
     <a href="#!signup" class="navbar-brand  nav-link"  aria-live="assertive" ng-show="!authenticated"><i class="fas fa-user-edit"></i> Sign Up</a>
 
     <a href="#!/notes" class="navbar-brand mx-md-5 nav-link "  ng-show="authenticated" ><i class="fas fa-user-graduate"></i> {{username}} </a>
-    <a href="#!logout" type="submit" class="navbar-brand  " ng-click="[authenticated =  false, $http.defaults.headers.post.Authorization = null]" aria-live="assertive" ng-show="authenticated"> <i class="fas fa-door-open"></i></a>
+<!--    todo: is fix this-->
+    <a href="#!logout" type="submit" class="navbar-brand" ng-click="[authenticated = false]" ng-click="[localStorage.removeItem('jwt')]" aria-live="assertive" ng-show="authenticated"> <i class="fas fa-door-open"></i></a>
   </form>
 </nav>
 
@@ -84,6 +84,7 @@
 
 <div ng-view></div>
 
+<script>
 </script>
 </body>
 </html>

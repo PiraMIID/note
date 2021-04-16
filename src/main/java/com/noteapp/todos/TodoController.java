@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
-@Controller("/api/todo")
+@Controller("/api/todo/thjk/hgj")
 public class TodoController {
 
     private TodoService todoService;
@@ -19,15 +19,16 @@ public class TodoController {
     }
 
 
-    @GetMapping("")
-    public List<TodoDto> getListTodo(@RequestBody Long userId) {
-        return todoService.findAll(userId);
-    }
+//    @GetMapping("")
+//    public List<TodoDto> getListTodo(@RequestBody Long userId) {
+//        return todoService.findAll(userId).subList(0,4);
+//    }
 
-    @PostMapping("/create")
-    public ResponseEntity<TodoDto> save(@RequestBody TodoDto todo, @RequestBody UserDto user) {
-        TodoDto savedTodo = todoService.save(todo);
-    }
+//    @PostMapping("/create")
+//    public ResponseEntity<TodoDto> save(@RequestBody TodoDto todo) {
+//        TodoDto savedTodo = todoService.save(todo);
+//        return ResponseEntity.ok(savedTodo);
+//    }
 //    @GetMapping("/{id}/eidt")
 //    @PostMapping("/{id}/edit")
 //    @PostMapping("/{id}/remove")

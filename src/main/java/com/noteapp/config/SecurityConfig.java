@@ -1,11 +1,11 @@
 package com.noteapp.config;
 
-import com.noteapp.jwt.JwtAuthenticationFilter;
+import com.noteapp.jwt.JwtConfig;
+import com.noteapp.jwt.JwtTokenVerifier;
+import com.noteapp.jwt.JwtUsernameAndPasswordAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -13,7 +13,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+
+import javax.crypto.SecretKey;
 
 /*
 * todo: to understand all concepts of security i must first get known about the most popular concept
@@ -31,13 +33,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserService userService;
-    private UsernamePasswordAuthenticationFilter jusernamePasswordAuthenticationFilter;
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final SecretKey secretKey;
+    private final JwtConfig jwtConfig;
 
-
-    public SecurityConfig(UserService userService, com.noteapp.jwt.JwtAuthenticationFilter jwtAuthenticationFilter) {
+    public SecurityConfig(UserService userService, JwtConfig jwtConfig, SecretKey secretKey) {
         this.userService = userService;
-        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+        this.secretKey = secretKey;
+        this.jwtConfig = jwtConfig;
     }
 
     @Bean
@@ -46,27 +48,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return passwordEncoder;
     }
 
-    @Bean(name = BeanIds.USER_DETAILS_SERVICE)
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         http
                 .httpBasic().disable()
-                .csrf().disable()
-//                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
+                .csrf()//.disable()
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST).authenticated()
                 .antMatchers("**assets").authenticated().and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .addFilterBefore(jwtAuthenticationFilter,
-                        UsernamePasswordAuthenticationFilter.class);
-
+                .addFilterAfter(new JwtTokenVerifier(secretKey,jwtConfig) ,JwtUsernameAndPasswordAuthenticationFilter.class)
+                .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(),jwtConfig,secretKey));
     }
 
 
@@ -74,8 +70,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService);
     }
-
-
-
 
 }

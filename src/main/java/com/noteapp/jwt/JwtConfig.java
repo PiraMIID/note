@@ -1,17 +1,18 @@
 package com.noteapp.jwt;
 
 import com.google.common.net.HttpHeaders;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
+
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
-
 @Component
+@Configuration
 public class JwtConfig {
 
-    private String secretKey = "secretkey";
-    private String tokenPrefix = "B";
-    private Integer tokenExpirationAfterDays;
+    private String secretKey = "securesecuresecuresecuresecuresecuresecuresecuresecuresecuresecure";
+    private String tokenPrefix = "Bearer ";
+    private Integer tokenExpirationAfterDays = 10;
 
     public JwtConfig() {
     }

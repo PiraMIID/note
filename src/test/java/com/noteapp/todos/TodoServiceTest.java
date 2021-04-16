@@ -5,17 +5,12 @@ import com.noteapp.config.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
+
 
 
 class TodoServiceTest {
@@ -29,7 +24,7 @@ class TodoServiceTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
+//        MockitoAnnotations.openMocks(this);
         underTest = new TodoService(userRepository, todoRepository);
     }
 
@@ -47,14 +42,14 @@ class TodoServiceTest {
         Todo todo1 = new Todo("Test2", "Write good test", true, user);
         Todo todo2 = new Todo("Test3", "Write good test", true, user);
 
-        Todo[] todosArray = new Todo[] {todo, todo1, todo2};
-        List<Todo> todos = List.copyOf(Arrays.asList(todosArray));
+        List<Todo> todos = List.of(todo,todo1, todo2);
+
         given(todoRepository.findAllByUserId(1L)).willReturn(todos);
 
         // When
         // Then
 
-        assertThat(todos).containsExactly(todosArray);
+        assertThat(todos).containsExactly(todo2);
 
         assertThat(todos).contains(todo1);
 

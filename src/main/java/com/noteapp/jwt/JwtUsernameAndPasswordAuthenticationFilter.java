@@ -1,18 +1,20 @@
 package com.noteapp.jwt;
 
-import com.noteapp.config.SecurityConfig;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.SerializationException;
+import io.jsonwebtoken.io.Serializer;
+import io.jsonwebtoken.jackson.io.JacksonSerializer;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.stereotype.Component;
 
-import javax.servlet.Filter;
+import javax.crypto.SecretKey;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -21,46 +23,61 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Date;
 
-/*
- * 1. check Principals User
- * 2. if ok: create token and save to database
- *   */
+public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter  {
 
+    private final AuthenticationManager authenticationManager;
+    private final JwtConfig jwtConfig;
+    private final SecretKey secretKey;
 
-@Component
-public abstract class JwtUsernameAndPasswordAuthenticationFilter implements Filter {
+    public JwtUsernameAndPasswordAuthenticationFilter(AuthenticationManager authenticationManager,
+                                                      JwtConfig jwtConfig,
+                                                      SecretKey secretKey) {
+        this.authenticationManager = authenticationManager;
+        this.jwtConfig = jwtConfig;
+        this.secretKey = secretKey;
+    }
 
-
-
+    @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
                                                 HttpServletResponse response) throws AuthenticationException {
 
-        System.out.println(response.getTrailerFields().get().keySet().stream().filter(s -> s.equals("data")));
-//        Authentication authorization = AuthenticationManagerBuilder.authenticate(
-//                new UsernamePasswordAuthenticationToken(
-//                        response.getTrailerFields().get().keySet().stream().filter(s -> s.equals("data"))
-//                        ,response.getTrailerFields().get().keySet().stream().filter(s -> s.equals("credential"))));
-        return (Authentication) User.builder().build().getAuthorities();
+        try {
+            System.out.println("1");
+            UsernameAndPasswordAuthenticationRequest authenticationRequest = new ObjectMapper()
+                    .readValue(request.getInputStream(), UsernameAndPasswordAuthenticationRequest.class);
+
+            Authentication authentication = new UsernamePasswordAuthenticationToken(
+                    authenticationRequest.getUsername(),
+                    authenticationRequest.getPassword()
+            );
+            System.out.println(authentication.getPrincipal().toString());
+            Authentication authenticate = authenticationManager.authenticate(authentication);
+            return authenticate;
+
+        } catch (IOException e) {
+            System.out.println("3");
+            throw new RuntimeException(e);
+        }
 
     }
 
-
-    public void successfulAuthentication(HttpServletRequest request,
+    @Override
+    protected void successfulAuthentication(HttpServletRequest request,
                                             HttpServletResponse response,
                                             FilterChain chain,
                                             Authentication authResult) throws IOException, ServletException {
+
+        System.out.println(authResult.getAuthorities());
         String token = Jwts.builder()
+                .serializeToJsonWith(new JacksonSerializer<>(new JsonMapper()))
                 .setSubject(authResult.getName())
                 .claim("authorities", authResult.getAuthorities())
                 .setIssuedAt(new Date())
-                .setExpiration(java.sql.Date.valueOf(LocalDate.now().plusDays(2)))
-                .signWith(Keys.hmacShaKeyFor("secretkey".getBytes()))
+                .setExpiration(java.sql.Date.valueOf(LocalDate.now().plusDays(jwtConfig.getTokenExpirationAfterDays())))
+                .signWith(secretKey, SignatureAlgorithm.forSigningKey(secretKey))
                 .compact();
 
-        System.out.println("token :" + token);
-
-        response.addHeader("Authorization", "Bearer " + token);
-        chain.doFilter(request,response);
+        System.out.println(token);
+        response.addHeader(jwtConfig.getAuthorizationHeader(), jwtConfig.getTokenPrefix() + token);
     }
-
 }

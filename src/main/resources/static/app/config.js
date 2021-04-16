@@ -61,11 +61,29 @@ angular.module('app')
             controller: 'todoCreateController',
             controllerAs: 'ctrl'
         })
+        .when('/api/username',{})
         .otherwise({
             redirectTo: '/login',
         });
     $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
     console.log('config');
-});
+    var jwt = localStorage.getItem('jwt');
+
+    if(jwt!=null) {
+        $httpProvider.defaults.headers.common["Authorization"] = jwt;
+
+    }
+
+
+})
+    .run(function($rootScope) {
+        var jwt = localStorage.getItem('jwt');
+        if(jwt!==null) {
+            console.log('tu jestem ! ');
+            $rootScope.authenticated = true;
+            $rootScope.username = localStorage.getItem('username');
+        }
+    });
+
 
 
