@@ -11,9 +11,11 @@ import java.util.stream.Collectors;
 public class TodoService {
 
     private TodoRepository todoRepository;
+    private UserRepository userRepository;
 
 
     public TodoService(UserRepository userRepository, TodoRepository todoRepository) {
+        this.userRepository = userRepository;
         this.todoRepository = todoRepository;
     }
 

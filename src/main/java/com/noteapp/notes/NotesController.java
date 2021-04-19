@@ -20,7 +20,7 @@ public class NotesController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<NotesDto>> getAll() {
+    public ResponseEntity<List<NotesDto>> getAll(@RequestAttribute("username") String username) {
         return new ResponseEntity<>(notesService.getList().subList(0,20), HttpStatus.ACCEPTED);
     }
 

@@ -1,10 +1,12 @@
 package com.noteapp.notes;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.noteapp.config.User;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
+@JsonIgnoreProperties({"user", "notes"})
 public class NotesDto {
 
     private Long id;
@@ -14,19 +16,21 @@ public class NotesDto {
     private LocalDateTime createdAt;
     private User user;
 
-    public Long getId() {
-        return id;
+    public NotesDto() {
+
     }
 
-    @Override
-    public String toString() {
-        return "AssetsDto{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", category='" + category + '\'' +
-                ", user=" + user +
-                '}';
+    public NotesDto(Long id, String name, String description, String category, LocalDateTime createdAt, User user) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.category = category;
+        this.createdAt = createdAt;
+        this.user = user;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public void setId(Long id) {
@@ -71,5 +75,17 @@ public class NotesDto {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return "NotesDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", category='" + category + '\'' +
+                ", createdAt=" + createdAt +
+                ", user=" + user +
+                '}';
     }
 }

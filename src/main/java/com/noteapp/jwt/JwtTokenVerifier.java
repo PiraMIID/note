@@ -72,6 +72,10 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
 
             request.setAttribute("username", username);
 
+            System.out.println("username: " + username);
+            System.out.println("request");
+            System.out.println(request.getAttribute("username"));
+
             var authorities = (List<Map<String, String>>) body.get("authorities");
 
 

@@ -23,7 +23,5 @@ class UserServiceTest {
 
     @Test
     void loadUserByUsername() {
-//        underTest.loadUserByUsername("dawid");
-        verify(userRepository).findByUsername("dawid").get().canEqual(User.class);
     }
 }

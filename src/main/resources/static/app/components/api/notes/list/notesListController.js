@@ -1,5 +1,5 @@
 angular.module('app')
-    .constant('ASSETS_ASSIGNMENTS_ENDPOINT','/:username/assets')
+    .constant('ASSETS_ASSIGNMENTS_ENDPOINT','/api/notes')
     .factory('Notes', function($resource,$http,$rootScope,  ASSETS_ASSIGNMENTS_ENDPOINT) {
         return $resource(ASSETS_ASSIGNMENTS_ENDPOINT);
     })

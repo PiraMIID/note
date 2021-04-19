@@ -2,11 +2,23 @@ package com.noteapp.notes;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+//class create to test
 public class NotesRequest {
 
-    private NotesDto notesDto;
+    private final NotesDto notesDto;
 
-    public NotesRequest(@JsonProperty("notes") NotesDto notesDto) {
+    public NotesRequest(@JsonProperty("notesDto") NotesDto notesDto) {
         this.notesDto = notesDto;
+    }
+
+    public NotesDto getNotesDto() {
+        return notesDto;
+    }
+
+    @Override
+    public String toString() {
+        return "NotesRequest{" +
+                "notesDto=" + notesDto +
+                '}';
     }
 }

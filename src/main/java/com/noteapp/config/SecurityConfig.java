@@ -61,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("**assets").authenticated().and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .addFilterAfter(new JwtTokenVerifier(secretKey,jwtConfig) ,JwtUsernameAndPasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtTokenVerifier(secretKey,jwtConfig) ,JwtUsernameAndPasswordAuthenticationFilter.class)
                 .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(),jwtConfig,secretKey));
     }
 
