@@ -1,5 +1,6 @@
 package com.noteapp.notes;
 
+import org.aspectj.lang.annotation.Before;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -10,7 +11,8 @@ import javax.swing.text.html.parser.Entity;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Controller("/api/notes")
+@RestController
+@RequestMapping("api/notes")
 public class NotesController {
 
     private NotesService notesService;
@@ -20,19 +22,24 @@ public class NotesController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<NotesDto>> getAll(@RequestAttribute("username") String username) {
-        return new ResponseEntity<>(notesService.getList().subList(0,20), HttpStatus.ACCEPTED);
+    public List<NotesDto> getAll(@RequestAttribute("username") String username, @RequestParam(required = false) String text) {
+        System.out.println("username = " + username + " text = " + text);
+        if(text != null)
+            return notesService.findAllByUsernameAndNameOrDescription(username, text);
+        else
+            return notesService.findAllByUsername(username);
+
     }
 
 
-    @PostMapping("/create")
-    public ResponseEntity<NotesDto> addNotes(@RequestBody NotesDto notes) {
-        if(notes.getName().isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Nostes name can't be empty");
-        }
-        NotesDto save = notesService.save(notes);
-        return ResponseEntity.ok(save);
-    }
+//    @PostMapping("")
+//    public ResponseEntity<NotesDto> addNotes(@RequestBody NotesDto notes) {
+//        if(notes.getName().isEmpty()) {
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Notes name can't be empty");
+//        }
+//        NotesDto save = notesService.save(notes);
+//        return ResponseEntity.ok(save);
+//    }
 //    @PostMapping("/create")
 //    @GetMapping("/{id}/eidt")
 //    @PostMapping("/{id}/edit")

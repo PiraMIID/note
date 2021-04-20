@@ -24,7 +24,7 @@ angular.module('app')
             controller: 'NotesEditController',
             controllerAs: 'ctrl'
         })
-        .when('/api/notess',  {
+        .when('/api/notes/create',  {
             templateUrl: 'app/components/api/notes/create/notesCreate.html',
             controller: 'NotesCreateController',
             controllerAs: 'ctrl'

@@ -17,17 +17,24 @@ public class NotesService {
         this.userRepository = userRepository;
     }
 
+    public NotesDto saveNotes(NotesRequest notesRequest) {
+        NotesDto notesDto = notesRequest.getNotesDto();
+        Notes notes = NotesMapper.toEntity(notesDto);
+        Notes save = notesRepository.save(notes);
+        return NotesMapper.toDto(save);
+    }
 
-    public List<NotesDto> getList() {
-        return notesRepository.findAll()
+    public List<NotesDto> findAllByUsername(String username) {
+        return notesRepository.findAllByUsername(username)
                 .stream()
                 .map(NotesMapper::toDto)
                 .collect(Collectors.toList());
     }
 
-    public NotesDto save(NotesDto notesDto) {
-        Notes notes = NotesMapper.toEntity(notesDto);
-        Notes save = notesRepository.save(notes);
-        return NotesMapper.toDto(save);
+    public List<NotesDto> findAllByUsernameAndNameOrDescription(String username, String text) {
+        return notesRepository.findAllByUsernameAndNameOrDescription(username, text)
+                .stream()
+                .map(NotesMapper::toDto)
+                .collect(Collectors.toList());
     }
 }

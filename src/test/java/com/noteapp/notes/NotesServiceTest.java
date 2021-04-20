@@ -11,7 +11,11 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.time.LocalDateTime;
 import java.util.List;
+
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
 
 
 class NotesServiceTest {
@@ -62,6 +66,30 @@ class NotesServiceTest {
 
 
         // Then
+
+    }
+
+    @Test
+    void itShouldSaveNotes() {
+        // Given
+        User dawid = new User();
+        dawid.setId(1L);
+        String usernameDawid = "dawid";
+        dawid.setUsername(usernameDawid);
+        dawid.setPassword("szmajduch");
+        dawid.setRole("ROLE_USER");
+        userRepository.save(dawid);
+
+        Notes notes = new Notes(1L, "cosmos1", "online course1", LocalDateTime.now(), null, dawid);
+        NotesDto notesDto = NotesMapper.toDto(notes);
+        NotesRequest notesRequest = new NotesRequest(notesDto);
+
+        // When
+        underTest.saveNotes(notesRequest);
+
+        // Then
+        then(notesRepository).should().save(notesArgumentCaptor.capture());
+
 
     }
 }

@@ -2,6 +2,7 @@
 <!--eg. press: p - photo, t - text .... --->
 <!-- https://www.youtube.com/watch?v=RXhz-MO_eHc-->
 <!-- download note in pdf form -->
+
 <div class="container" id= "page" >
     <label style="font-size: 200%;">Pytanie:</label>
     <textarea class="form-control col " id="textAreaQuestion" rows="1" style="text-align: center; margin-bottom: 10px"></textarea>
@@ -29,9 +30,12 @@
 
     </div>
 
-    <div >
-        <label style="font-size: 200%">Notatka</label>
-        <textarea class="form-control col " id="textAreaNote" rows="4" style="text-align: center;margin-bottom: 10px"></textarea>
+    <div>
+        <form action="[URL]" method="post">
+        <textarea name="content" rows="6" id="editor">
+            &lt;p&gt;This is some sample content.&lt;/p&gt;
+        </textarea>
+        </form>
 
     </div>
     <div class="row">
@@ -40,5 +44,11 @@
 
 
     <div  id="nextPage" class="container"></div>
-
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#editor' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
 </div>

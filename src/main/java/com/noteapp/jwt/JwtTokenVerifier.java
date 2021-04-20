@@ -75,6 +75,7 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
             System.out.println("username: " + username);
             System.out.println("request");
             System.out.println(request.getAttribute("username"));
+            System.out.println();
 
             var authorities = (List<Map<String, String>>) body.get("authorities");
 
@@ -94,7 +95,7 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
             System.out.println(e);
             throw new IllegalStateException(String.format("Token %s cannot be trusted", token));
         }
-
+        System.out.println("fine");
         filterChain.doFilter(request, response);
     }
 }

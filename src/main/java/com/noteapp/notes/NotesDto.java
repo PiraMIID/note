@@ -6,7 +6,7 @@ import com.noteapp.config.User;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@JsonIgnoreProperties({"user", "notes"})
+@JsonIgnoreProperties({"user"})
 public class NotesDto {
 
     private Long id;

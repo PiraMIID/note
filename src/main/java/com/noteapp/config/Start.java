@@ -28,29 +28,31 @@ public class Start {
         appUser.setRole("ROLE_USER");
         userRepository.save(appUser);
 
-        Notes notesUser = new Notes();
 
-        notesUser.setName("nota 1");
-        notesUser.setDescription("opis");
-        notesUser.setCreatedAt(LocalDateTime.now());
-        notesUser.setUser(appUser);
-        notesRepository.save(notesUser);
 
-        Notes notesUser0 = new Notes();
+//        Notes notesUser = new Notes();
 
-        notesUser0.setName("nota 2");
-        notesUser0.setDescription("opis");
-        notesUser0.setCreatedAt(LocalDateTime.now());
-        notesUser0.setUser(appUser);
-        notesRepository.save(notesUser0);
-
-        Notes notesUser1 = new Notes();
-
-        notesUser1.setName("nota 3");
-        notesUser1.setDescription("opis");
-        notesUser1.setCreatedAt(LocalDateTime.now());
-        notesUser1.setUser(appUser);
-        notesRepository.save(notesUser1);
+//        notesUser.setName("nota 1");
+//        notesUser.setDescription("opis");
+//        notesUser.setCreatedAt(LocalDateTime.now());
+//        notesUser.setUser(appUser);
+//        notesRepository.save(notesUser);
+//
+//        Notes notesUser0 = new Notes();
+//
+//        notesUser0.setName("nota 2");
+//        notesUser0.setDescription("opis");
+//        notesUser0.setCreatedAt(LocalDateTime.now());
+//        notesUser0.setUser(appUser);
+//        notesRepository.save(notesUser0);
+//
+//        Notes notesUser1 = new Notes();
+//
+//        notesUser1.setName("nota 3");
+//        notesUser1.setDescription("opis");
+//        notesUser1.setCreatedAt(LocalDateTime.now());
+//        notesUser1.setUser(appUser);
+//        notesRepository.save(notesUser1);
 
 
 

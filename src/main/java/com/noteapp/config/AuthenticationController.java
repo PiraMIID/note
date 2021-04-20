@@ -27,10 +27,5 @@ public class AuthenticationController {
         return user;
     }
 
-    @GetMapping("/api/username")
-    public String getUserName(@RequestBody(required = true) String userName) {
-        System.out.println("user endpoint" + userName);
-        return userName;
-    }
 
 }

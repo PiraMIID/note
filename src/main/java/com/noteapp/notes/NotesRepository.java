@@ -7,6 +7,11 @@ import java.util.List;
 
 public interface NotesRepository extends JpaRepository<Notes, Long> {
 
-    @Query("select n from Notes n where n.user.username = ?1")
-    List<Notes> findAllByUsername(String dawid);
+    @Query("select n from Notes n where n.user.username = :username")
+    List<Notes> findAllByUsername(String username);
+
+    @Query("select n from Notes n where lower(n.name) like lower(concat('%', :text ,'%')) " +
+            "or lower(concat(n.description) ) like lower(concat('%', :text, '%')) " +
+            "and n.user.username like :username ")
+    List<Notes> findAllByUsernameAndNameOrDescription(String username, String text);
 }

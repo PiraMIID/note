@@ -8,7 +8,7 @@ angular.module('app')
             return Notes.query();
         }
     })
-    .controller('AssetListController',function ($routeParams,$http, $rootScope, $location, AssetsService) {
+    .controller('NotesListController',function ($routeParams,$http, $rootScope, $location, AssetsService) {
         var vm = this;
         console.log('AssetListController');
         vm.notes = AssetsService.getAll();
