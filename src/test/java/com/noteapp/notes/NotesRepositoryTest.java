@@ -16,7 +16,6 @@ class NotesRepositoryTest {
     /*
     Im use h2 database cause is working on RAM memory so is faster then postgres
     todo: why if i try save more then 2 Notes to database is change to update oldest records
-
     * */
 
     @Autowired

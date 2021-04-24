@@ -14,4 +14,6 @@ public interface NotesRepository extends JpaRepository<Notes, Long> {
             "or lower(concat(n.description) ) like lower(concat('%', :text, '%')) " +
             "and n.user.username like :username ")
     List<Notes> findAllByUsernameAndNameOrDescription(String username, String text);
+
+//    Notes save(Notes notes);
 }

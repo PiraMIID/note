@@ -85,7 +85,7 @@ class NotesServiceTest {
         NotesRequest notesRequest = new NotesRequest(notesDto);
 
         // When
-        underTest.saveNotes(notesRequest);
+        underTest.saveNotes(notesDto);
 
         // Then
         then(notesRepository).should().save(notesArgumentCaptor.capture());

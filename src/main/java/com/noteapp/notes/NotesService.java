@@ -17,8 +17,7 @@ public class NotesService {
         this.userRepository = userRepository;
     }
 
-    public NotesDto saveNotes(NotesRequest notesRequest) {
-        NotesDto notesDto = notesRequest.getNotesDto();
+    public NotesDto saveNotes(NotesDto notesDto) {
         Notes notes = NotesMapper.toEntity(notesDto);
         Notes save = notesRepository.save(notes);
         return NotesMapper.toDto(save);
