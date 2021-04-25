@@ -6,6 +6,7 @@ import com.noteapp.config.User;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.BDDAssertions.then;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class NotesRequestTest {
 
@@ -19,7 +20,7 @@ class NotesRequestTest {
         user.setPassword("szmajduch");
         user.setRole("ROLE_USER");
 
-        NotesDto notes = new NotesDto(1L, "cosmos1", "online course1", "asdasdasd1", null,  user);
+        NotesDto notes = new NotesDto(1L, "cosmos1", "online course1", "asdasdasd1", null, user);
 
         // When
         NotesRequest beforeJSON = new NotesRequest(notes);
@@ -37,4 +38,5 @@ class NotesRequestTest {
         then(afterJSON.getNotesDto().getDescription()).isEqualTo(beforeJSON.getNotesDto().getDescription());
         then(afterJSON.getNotesDto().getDescription()).isEqualTo(notes.getDescription());
     }
+
 }

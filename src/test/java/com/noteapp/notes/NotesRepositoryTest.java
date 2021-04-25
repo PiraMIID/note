@@ -2,32 +2,44 @@ package com.noteapp.notes;
 
 import com.noteapp.config.User;
 import com.noteapp.config.UserRepository;
+import com.noteapp.note.Note;
+
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.test.context.ContextConfiguration;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+
 
 @DataJpaTest
 class NotesRepositoryTest {
     /*
     Im use h2 database cause is working on RAM memory so is faster then postgres
-    todo: why if i try save more then 2 Notes to database is change to update oldest records
     * */
+
 
     @Autowired
     private NotesRepository underTest;
+
     @Autowired
     private UserRepository userRepository;
 
     private String usernameDawid;
     private String usernameKasia;
 
-    @Autowired
-    void NotesRepositoryTest() {
+    @BeforeEach
+    void setUnderTest() {
 
         User dawid = new User();
         dawid.setId(1L);
@@ -54,6 +66,8 @@ class NotesRepositoryTest {
 
         underTest.saveAll(List.of(notes3, notes4, notes5, notes6));
     }
+
+
 
     @Test
     void itShouldReturnListNotesOfUserByUsername() {
@@ -139,5 +153,16 @@ class NotesRepositoryTest {
                         notes.getUser().getUsername().equals(usernameDawid) &&
                                 (notes.getName().contains("2") || notes.getDescription().contains("2")))
                 .count()).isEqualTo(1);
+    }
+
+    @Test
+    void itShouldGetListNotes() {
+        // Given
+        // When
+        List<Notes> allByUsernameDawid = underTest.findAllByUserUsernameAndName(usernameDawid, "cosmos31");
+        // Then
+        assertThat(allByUsernameDawid).hasSize(1)
+                .isInstanceOf(List.class);
+
     }
 }

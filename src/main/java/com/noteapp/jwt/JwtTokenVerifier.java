@@ -70,6 +70,7 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
 
             String username = body.getSubject();
 
+
             request.setAttribute("username", username);
 
             System.out.println("username: " + username);

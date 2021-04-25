@@ -8,6 +8,7 @@ public class NotesRequest {
     private final NotesDto notesDto;
 
     public NotesRequest(@JsonProperty("notesDto") NotesDto notesDto) {
+        System.out.println(notesDto);
         this.notesDto = notesDto;
     }
 
