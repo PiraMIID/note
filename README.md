@@ -1,7 +1,7 @@
 # note
 
-### App to create notes \n
-Angular\n
+### App to create notes /n
+Angular/n
 Spring
 
 ### Security: JWT
@@ -9,7 +9,7 @@ Spring
 ## Testing
 
 
-###Images
+## Images
 ![alt text](https://github.com/PiraMIID/note/blob/before_jwt/img.png?raw=true)
 
 ![alt text](https://github.com/PiraMIID/note/blob/before_jwt/img_1.png?raw=true)
