@@ -1,10 +1,10 @@
 package com.noteapp.notes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.noteapp.config.User;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @JsonIgnoreProperties({"user"})
 public class NotesDto {
@@ -17,7 +17,6 @@ public class NotesDto {
     private User user;
 
     public NotesDto() {
-
     }
 
     public NotesDto(Long id, String name, String description, String category, LocalDateTime createdAt, User user) {

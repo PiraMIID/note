@@ -22,31 +22,23 @@ class TodoRepositoryTest {
     @Test
     void itShouldFindAllByUserName() {
         // Given
-        Random random = new Random();
-//        Long id = 3L;
-//        System.out.println(id);
         String username = "dawid";
-
         User user = new User();
-//        user.setId(id);
         user.setUsername(username);
         user.setPassword("szmajduch");
         user.setRole("ROLE_USER");
-
-//        id = random.nextLong();
         String value = "Write good test";
-        Todo todo = new Todo("Test", value, true, user);
+        String test = "Test";
+        Todo todo = new Todo(test, value, true, user);
 
-        // When
         userRepository.save(user);
         underTest.save(todo);
+
+        // When
+        List<Todo> todos = underTest.findAllByUserUsername(user.getUsername());
+
         // Then
-
-        List<Todo> todos = underTest.findAllByUserId(user.getId());
-
-        System.out.println(todo.getUser());
-
-        assertThat(todo).extracting(Todo::getUser).isEqualTo(user);
+        assertThat(todos).extracting(Todo::getUser).containsExactly(user);
 
     }
 }

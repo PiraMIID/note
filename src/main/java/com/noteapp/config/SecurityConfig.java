@@ -54,11 +54,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .httpBasic().disable()
-                .csrf()//.disable()
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
+                .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST).authenticated()
-                .antMatchers("**assets").authenticated().and()
+                .antMatchers("/api/**").authenticated().and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .addFilterBefore(new JwtTokenVerifier(secretKey,jwtConfig) ,JwtUsernameAndPasswordAuthenticationFilter.class)

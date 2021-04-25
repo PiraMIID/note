@@ -5,8 +5,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class NotesMapper {
 
-
-
     public static NotesDto toDto(Notes notes) {
         NotesDto dto = new NotesDto();
         dto.setId(notes.getId());

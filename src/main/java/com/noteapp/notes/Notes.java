@@ -17,7 +17,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-//@EqualsAndHashCode
+@EqualsAndHashCode
 @Entity
 public class Notes {
     @Id
