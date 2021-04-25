@@ -1,8 +1,8 @@
 # note
 
-### App to create notes /n
-Angular/n
-Spring
+### App to create notes 
+# Angular
+# Spring
 
 ### Security: JWT
 
