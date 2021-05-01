@@ -8,6 +8,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.SerializationException;
 import io.jsonwebtoken.io.Serializer;
 import io.jsonwebtoken.jackson.io.JacksonSerializer;
+import nonapi.io.github.classgraph.json.JSONSerializer;
+import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -55,7 +57,6 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
             return authenticate;
 
         } catch (IOException e) {
-            System.out.println("3");
             throw new RuntimeException(e);
         }
 
@@ -78,7 +79,12 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                 .compact();
 
         System.out.println(token);
-        response.addHeader(jwtConfig.getAuthorizationHeader(), jwtConfig.getTokenPrefix() + token);
+        String authorizationHeader = jwtConfig.getAuthorizationHeader();
+        String value = jwtConfig.getTokenPrefix() + token;
+        String[] body = new String[]{authorizationHeader, value};
+        response.addHeader(authorizationHeader, value);
+
+        response.getWriter().write(JSONSerializer.serializeObject(value));
 
         chain.doFilter(request,response);
     }

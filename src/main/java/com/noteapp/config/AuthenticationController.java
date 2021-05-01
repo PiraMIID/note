@@ -11,6 +11,7 @@ import java.net.URI;
 import java.security.Principal;
 
 @Controller
+@CrossOrigin("*")
 public class AuthenticationController {
 
     private UserService userService;

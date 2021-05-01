@@ -4,13 +4,17 @@
   "description": "",
   "main": "app/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ng serve",
+    "build": "ng build",
+    "ng": "ng"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.3",
     "angular": "^1.8.2",
+    "angular-cli": "^1.0.0-beta.28.3",
     "angular-resource": "^1.8.2",
     "angular-route": "^1.8.2",
     "angular-storage": "0.0.15",
