@@ -9,19 +9,21 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("api/notes")
 public class NotesController {
 
     private final NotesService notesService;
 
+
     public NotesController(NotesService notesService) {
         this.notesService = notesService;
     }
 
+
     @GetMapping("")
-    public List<NotesDto> getAll(@RequestAttribute("username") String username, @RequestParam(required = false) String text) {
-        System.out.println("username = " + username + " text = " + text);
+    public List<NotesDto> getAll(@RequestParam(required = false) String text, @RequestAttribute("username") String username) {
         if (text != null)
             return notesService.findAllByUsernameAndNameOrDescription(username, text);
         else
@@ -31,11 +33,11 @@ public class NotesController {
 
     @PostMapping("/create")
     public ResponseEntity<NotesDto> addNotes(@RequestAttribute("username") String username, @RequestBody NotesDto notes) {
-        if(notes.getName().isEmpty()) {
+        if (notes.getName().isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Notes name can't be empty");
         }
-        NotesDto save = notesService.save(username,notes);
-        if (save==null) {
+        NotesDto save = notesService.save(username, notes);
+        if (save == null) {
             throw new ApiRequestExcaption("Notes cannot save with exceptions");
         }
         return ResponseEntity.ok(save);
@@ -56,4 +58,8 @@ public class NotesController {
         return id;
     }
 
+
 }
+
+
+

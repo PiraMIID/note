@@ -20,7 +20,7 @@ public class TodoController {
 
     @GetMapping("")
     public List<TodoDto> getListTodo(@RequestAttribute("username") String username) {
-        return todoService.findAllByUsername(username);
+        return todoService.findAll(username);
     }
 
     @PostMapping("/create")

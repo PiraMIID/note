@@ -8,7 +8,6 @@ angular.module('app')
             controllerAs: 'ctrl'
         })
         .when('/login', {
-
             templateUrl: 'app/components/users/login/userLogin.html',
             controller: 'AuthenticationController',
             controllerAs: 'ctrl'

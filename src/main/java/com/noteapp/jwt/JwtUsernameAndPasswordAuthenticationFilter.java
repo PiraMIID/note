@@ -8,6 +8,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.SerializationException;
 import io.jsonwebtoken.io.Serializer;
 import io.jsonwebtoken.jackson.io.JacksonSerializer;
+import nonapi.io.github.classgraph.json.JSONSerializer;
+import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -22,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Map;
 
 public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter  {
 
@@ -55,7 +58,6 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
             return authenticate;
 
         } catch (IOException e) {
-            System.out.println("3");
             throw new RuntimeException(e);
         }
 
@@ -78,8 +80,15 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                 .compact();
 
         System.out.println(token);
-        response.addHeader(jwtConfig.getAuthorizationHeader(), jwtConfig.getTokenPrefix() + token);
+        String authorizationHeader = jwtConfig.getAuthorizationHeader();
+        String value = jwtConfig.getTokenPrefix() + token;
+        if(!response.isCommitted()) {
+            response.addHeader(authorizationHeader, value);
 
-        chain.doFilter(request,response);
+            Map<String, Object> detailsNeededAngular = Map.of("jwt", value, "username", authResult.getName(), "role", authResult.getAuthorities().stream().findFirst());
+            response.getWriter().write(JSONSerializer.serializeObject(detailsNeededAngular));
+            chain.doFilter(request,response);
+        }
+
     }
 }

@@ -20,8 +20,9 @@ public class TodoService {
         this.todoRepository = todoRepository;
     }
 
-    List<TodoDto> findAll(Long userId) {
-        return todoRepository.findAllByUserId(userId)
+    List<TodoDto> findAll(String username) {
+        System.out.println(username + " in Todo Service");
+        return todoRepository.findAllByUserUsername(username)
                 .stream()
                 .map(TodoMapper::toDto)
                 .collect(Collectors.toList());
