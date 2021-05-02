@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Map;
 
 public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter  {
 
@@ -81,11 +82,13 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
         System.out.println(token);
         String authorizationHeader = jwtConfig.getAuthorizationHeader();
         String value = jwtConfig.getTokenPrefix() + token;
-        String[] body = new String[]{authorizationHeader, value};
-        response.addHeader(authorizationHeader, value);
+        if(!response.isCommitted()) {
+            response.addHeader(authorizationHeader, value);
 
-        response.getWriter().write(JSONSerializer.serializeObject(value));
+            Map<String, Object> detailsNeededAngular = Map.of("jwt", value, "username", authResult.getName(), "role", authResult.getAuthorities().stream().findFirst());
+            response.getWriter().write(JSONSerializer.serializeObject(detailsNeededAngular));
+            chain.doFilter(request,response);
+        }
 
-        chain.doFilter(request,response);
     }
 }

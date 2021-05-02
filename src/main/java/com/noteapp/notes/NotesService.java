@@ -2,16 +2,31 @@ package com.noteapp.notes;
 
 import com.noteapp.config.User;
 import com.noteapp.config.UserRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
+@Aspect
 @Service
+@EnableAspectJAutoProxy
+@Slf4j
 public class NotesService {
 
     private final UserRepository userRepository;
     private final NotesRepository notesRepository;
+
+    private String username;
 
     public NotesService(NotesRepository notesRepository, UserRepository userRepository) {
         this.notesRepository = notesRepository;
@@ -26,6 +41,7 @@ public class NotesService {
     }
 
     public List<NotesDto> findAllByUsernameAndNameOrDescription(String username, String text) {
+        System.out.println("service notes :" + this.username);
         return notesRepository.findAllByUsernameAndNameOrDescription(username, text)
                 .stream()
                 .map(NotesMapper::toDto)
@@ -52,4 +68,16 @@ public class NotesService {
     public void deleteNotes(Long id) {
         notesRepository.deleteById(id);
     }
+
+
+//    @Pointcut("execution(* com.noteapp.notes..*(..))")
+//    private void anyMethod() {
+//    }
+//
+//    @Before("anyMethod()")
+//    private  void getusername(JoinPoint joinPoint) {
+//        if (!Arrays.stream(joinPoint.getArgs()).allMatch(Objects::nonNull)) {
+//            this.username = SecurityContextHolder.getContext().getAuthentication().;
+//        }
+//    }
 }
