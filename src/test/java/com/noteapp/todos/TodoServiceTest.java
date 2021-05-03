@@ -1,16 +1,12 @@
 package com.noteapp.todos;
 
-import com.noteapp.config.User;
-import com.noteapp.config.UserRepository;
+import com.noteapp.user.User;
+import com.noteapp.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
-
 
 
 class TodoServiceTest {
@@ -42,7 +38,7 @@ class TodoServiceTest {
         Todo todo1 = new Todo("Test2", "Write good test", true, user);
         Todo todo2 = new Todo("Test3", "Write good test", true, user);
 
-        List<Todo> todos = List.of(todo,todo1, todo2);
+        List<Todo> todos = List.of(todo, todo1, todo2);
 
 //        given(todoRepository.findAllByUserId(1L)).willReturn(todos);
 

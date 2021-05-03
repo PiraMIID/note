@@ -1,25 +1,16 @@
 package com.noteapp.notes;
 
-import com.noteapp.config.User;
-import com.noteapp.config.UserRepository;
-import com.noteapp.note.Note;
-
-import java.util.ArrayList;
-
+import com.noteapp.user.User;
+import com.noteapp.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.springframework.test.context.ContextConfiguration;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 
 
 @DataJpaTest
@@ -66,7 +57,6 @@ class NotesRepositoryTest {
 
         underTest.saveAll(List.of(notes3, notes4, notes5, notes6));
     }
-
 
 
     @Test

@@ -1,18 +1,15 @@
 package com.noteapp;
 
 import com.github.javafaker.Faker;
-import com.noteapp.config.User;
-import com.noteapp.config.UserRepository;
 import com.noteapp.note.Note;
 import com.noteapp.note.NoteRepository;
 import com.noteapp.notes.Notes;
 import com.noteapp.notes.NotesRepository;
 import com.noteapp.todos.Todo;
 import com.noteapp.todos.TodoRepository;
-import org.springframework.context.annotation.Bean;
+import com.noteapp.user.User;
+import com.noteapp.user.UserRepository;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.objenesis.instantiator.annotations.Instantiator;
-import org.springframework.objenesis.instantiator.annotations.Typology;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;

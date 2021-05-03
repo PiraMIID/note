@@ -17,17 +17,23 @@ import java.util.Objects;
 @Aspect
 @Service
 @EnableAspectJAutoProxy
-@Slf4j
 public class GetUsernameBeforeEndpoinds {
 
     public static String username;
 
+//    todo: @Pointcut("execution(* com.noteapp.*..*(..))")
+//    i can use also @Pointcut("execution(* com.noteapp.*..*(..) || sdgsdbedrfb && asfsd)")
+
+//    next time after you will start thing about last problems
+//    also what you learned e.g.c.
+//    first i'm want faster. And this is the main reason that im slower
+//    but i very good actually.
     @Pointcut("execution(* com.noteapp.*..*(..))")
     private void anyMethod() {
     }
 
     @Before(value = "anyMethod()")
-    private String getusername(JoinPoint joinPoint) {
+    private String getUsername(JoinPoint joinPoint) {
         if (!Arrays.stream(joinPoint.getArgs()).allMatch(Objects::nonNull) || joinPoint.getClass().isAssignableFrom(JpaRepository.class)) {
             username = SecurityContextHolder.getContext().getAuthentication().getName();
             System.out.println("GetUsernameBeforeEndpoinds username:" + username);

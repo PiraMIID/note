@@ -1,13 +1,13 @@
 package com.noteapp.todos;
 
-import com.noteapp.config.User;
+import com.noteapp.user.User;
 
 public class TodoDto {
 
     private Long id;
     private String name;
     private String value;
-    private  boolean isDone;
+    private boolean isDone;
     private User user;
 
     public Long getId() {

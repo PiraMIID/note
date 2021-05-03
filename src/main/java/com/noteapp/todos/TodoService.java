@@ -1,7 +1,7 @@
 package com.noteapp.todos;
 
-import com.noteapp.config.User;
-import com.noteapp.config.UserRepository;
+import com.noteapp.user.User;
+import com.noteapp.user.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 @Service
 public class TodoService {
 
-    private TodoRepository todoRepository;
-    private UserRepository userRepository;
+    private final TodoRepository todoRepository;
+    private final UserRepository userRepository;
 
 
     public TodoService(UserRepository userRepository, TodoRepository todoRepository) {

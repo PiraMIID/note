@@ -1,13 +1,12 @@
 package com.noteapp.todos;
 
-import com.noteapp.config.User;
-import com.noteapp.config.UserRepository;
+import com.noteapp.user.User;
+import com.noteapp.user.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
-import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
