@@ -5,6 +5,7 @@ import com.noteapp.jwt.JwtConfig;
 import com.noteapp.jwt.JwtTokenVerifier;
 import com.noteapp.jwt.JwtUsernameAndPasswordAuthenticationFilter;
 import com.noteapp.user.UserService;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -47,6 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        System.out.println("secretly");
+        System.out.println(jwtConfig);
 
         http
 

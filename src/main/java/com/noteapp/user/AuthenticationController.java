@@ -11,6 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import springfox.documentation.spring.web.json.Json;
 
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.net.URI;
 import java.security.Principal;
@@ -45,7 +46,7 @@ public class AuthenticationController {
 // todo: user will be in data base but in boolean block him before click link on email
 // */
     @PostMapping("/signup")
-    public ResponseEntity<Json> save(@RequestBody SinginRequest singinRequest) throws IOException {
+    public ResponseEntity<Json> save(@RequestBody @Valid SinginRequest singinRequest) throws IOException {
         User savedUser = userService.save(singinRequest);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
