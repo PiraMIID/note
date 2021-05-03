@@ -6,13 +6,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
-
+/*
+Td activate validations in this class i need @Valid annotate in endpoints arguments
+* */
 public class SinginRequest {
-    @NotBlank private String username;
-    @Email private String email;
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @NotBlank private String password;
+    @NotBlank(message = "username must be not empty")
+    private String username;
+    @NotBlank(message = "email must ne not empty")
+    @Email(message = "email form is not correctly")
+    private String email;
+    @Size(min = 8, max = 30, message = "size of password is not correctly")
+    private String password;
 
 
     public SinginRequest(String username, String email, String password) {
