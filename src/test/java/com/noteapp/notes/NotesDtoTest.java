@@ -1,12 +1,11 @@
 package com.noteapp.notes;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import com.noteapp.config.User;
+import com.noteapp.user.User;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class NotesDtoTest {
     @Test

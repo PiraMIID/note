@@ -1,7 +1,7 @@
 package com.noteapp.notes;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.noteapp.config.User;
+import com.noteapp.user.User;
 
 import java.time.LocalDateTime;
 

@@ -1,4 +1,4 @@
-package com.noteapp.config;
+package com.noteapp.user;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;

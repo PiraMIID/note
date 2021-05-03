@@ -1,5 +1,6 @@
-package com.noteapp.config;
+package com.noteapp.user;
 
+import com.noteapp.user.token.Token;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,9 +20,12 @@ public class User implements UserDetails {
     private Long id;
     @NotBlank
     private String username;
+    private String email;
     @NotBlank
     private String password;
     private String role;
+    private boolean isAccountNonLocked = true;
+
 
 
     @Override
@@ -37,7 +41,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return isAccountNonLocked;
     }
 
     @Override
@@ -49,4 +53,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }

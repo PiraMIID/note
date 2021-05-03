@@ -2,11 +2,10 @@ package com.noteapp.notes;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.noteapp.config.User;
+import com.noteapp.user.User;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.BDDAssertions.then;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class NotesRequestTest {
 

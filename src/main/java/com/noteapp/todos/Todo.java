@@ -1,6 +1,6 @@
 package com.noteapp.todos;
 
-import com.noteapp.config.User;
+import com.noteapp.user.User;
 import lombok.Getter;
 import lombok.Setter;
 

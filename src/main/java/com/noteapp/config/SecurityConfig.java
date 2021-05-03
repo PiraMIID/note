@@ -4,6 +4,7 @@ package com.noteapp.config;
 import com.noteapp.jwt.JwtConfig;
 import com.noteapp.jwt.JwtTokenVerifier;
 import com.noteapp.jwt.JwtUsernameAndPasswordAuthenticationFilter;
+import com.noteapp.user.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -21,17 +22,6 @@ import org.springframework.web.filter.CorsFilter;
 
 import javax.crypto.SecretKey;
 import java.util.Arrays;
-import java.util.List;
-
-/*
-* todo: to understand all concepts of security i must first get known about the most popular concept
-*  to get know the best way for now is this videos :
-* https://www.youtube.com/watch?v=X80nJ5T7YpE&t=866s
-* https://www.youtube.com/watch?v=I0poT4UxFxE&ab_channel=JavaBrains
-* https://www.youtube.com/c/JavaBrainsChannel/search?query=security
-*
-*
-* */
 
 
 @Configuration
@@ -42,6 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final SecretKey secretKey;
     private final JwtConfig jwtConfig;
 
+
     public SecurityConfig(UserService userService, JwtConfig jwtConfig, SecretKey secretKey) {
         this.userService = userService;
         this.secretKey = secretKey;
@@ -49,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public static PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
@@ -90,6 +81,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
         return new CorsFilter(urlBasedCorsConfigurationSource);
     }
+
+
 
 
 }
