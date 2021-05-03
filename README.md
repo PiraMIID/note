@@ -1,7 +1,8 @@
 # note
 
 ### App to create notes 
-# Angular
+# Fronend
+https://github.com/PiraMIID/notes-fronend
 # Spring
 
 ### Security: JWT
