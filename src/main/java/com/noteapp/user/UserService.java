@@ -2,21 +2,20 @@ package com.noteapp.user;
 
 
 import com.noteapp.config.SecurityConfig;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import com.noteapp.exception.httpException.ConflictException;
+import com.noteapp.exception.message.ApiExceptionJsonMessage;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 
 @Service
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
-
 
 
     public UserService(UserRepository userRepository) {
@@ -25,17 +24,42 @@ public class UserService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return userRepository.findByUsername(s).get();
+    public UserDetails loadUserByUsername(String username)  {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User " + username + " not found"));
     }
 
-
-    public User save(SinginRequest singinRequest) {
+    User save(SinginRequest singinRequest)  {
+        checkNotDataNotAlreadyInDB(singinRequest);
         User user = new User();
         user.setUsername(singinRequest.getUsername());
         user.setPassword(SecurityConfig.passwordEncoder().encode(singinRequest.getPassword()));
         user.setRole("ROLE_USER");
+        user.setEmail(singinRequest.getEmail());
+//        this  will be change after confirm token on email
+        user.setAccountNonLocked(false);
         return userRepository.save(user);
     }
+
+    private void checkNotDataNotAlreadyInDB(SinginRequest singinRequest) {
+        ApiExceptionJsonMessage errMessage = new ApiExceptionJsonMessage();
+        String msg = "";
+        if(checkUsernameIsTaken(singinRequest.getUsername())) {
+            msg = "Username " + singinRequest.getUsername() + " is taken. ";
+            errMessage.add("username",msg);
+
+        }
+        if(checkEmailIsTaken(singinRequest.getEmail())) {
+            msg = "Email " + singinRequest.getEmail() + " is taken";
+            errMessage.add("email",msg);
+        }
+        if(!msg.isEmpty()) {
+            throw new ConflictException(errMessage);
+        }
+    }
+    boolean checkUsernameIsTaken(String username) {
+        return userRepository.existsByUsername(username);
+    }
+    boolean checkEmailIsTaken(String email) { return userRepository.existsByEmail(email); }
 
 }

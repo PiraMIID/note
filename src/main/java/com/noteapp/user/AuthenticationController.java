@@ -1,26 +1,17 @@
 package com.noteapp.user;
 
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import springfox.documentation.spring.web.json.Json;
 
-
 import javax.validation.Valid;
-import java.io.IOException;
 import java.net.URI;
 import java.security.Principal;
-import java.util.Map;
 
-import static org.apache.logging.log4j.message.MapMessage.MapFormat.JSON;
-
-@Controller
-@CrossOrigin("*")
+@RequestMapping("")
+@RestController
+//@CrossOrigin("*")
 public class AuthenticationController {
 
     private final UserService userService;
@@ -45,15 +36,21 @@ public class AuthenticationController {
 //*
 // todo: user will be in data base but in boolean block him before click link on email
 // */
+
+    //   /*
+//   is not working how i want
+//    this concept if i will understand i will better understand of all java things
+//   */
     @PostMapping("/signup")
-    public ResponseEntity<Json> save(@RequestBody @Valid SinginRequest singinRequest) throws IOException {
+    public ResponseEntity<Json> save(@RequestBody @Valid SinginRequest singinRequest) {
         User savedUser = userService.save(singinRequest);
+        Json message = new Json("{\"message\": \"We are send message on " + singinRequest.getEmail() +" with link. Please confirm to get access to you account. Thanks for join\"}");
         URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .buildAndExpand(savedUser.getId())
-                .toUri();
-        Json message = new Json("{\"message\": \"We are send email to you whit link. Please confirm to make access to you account. Thanks for join\"}");
+                .fromPath("login")
+                .build(savedUser);
         return ResponseEntity.created(location).body(message);
+
     }
+
 
 }

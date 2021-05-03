@@ -5,6 +5,8 @@ import com.noteapp.user.User;
 
 import java.time.LocalDateTime;
 
+//todo: today make sure of this class i mean i good for all type request or i need more
+//make valid to variable correctly
 @JsonIgnoreProperties({"user"})
 public class NotesDto {
 

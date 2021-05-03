@@ -1,15 +1,15 @@
 package com.noteapp.notes;
 
 
-import com.noteapp.exceptions.ApiRequestExcaption;
-import org.springframework.http.HttpStatus;
+
+import com.noteapp.exception.httpException.ApiRequestException;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
-
+@Log4j2
 @RestController
 @RequestMapping("api/notes")
 public class NotesController {
@@ -21,32 +21,34 @@ public class NotesController {
         this.notesService = notesService;
     }
 
-
     @GetMapping("")
-    public List<NotesDto> getAll(@RequestParam(required = false) String text, @RequestAttribute("username") String username) {
+    public List<NotesDto> getAll(@RequestParam(required = false) String text) {
         if (text != null)
-            return notesService.findAllByUsernameAndNameOrDescription(username, text);
+            return notesService.findAllByNameOrDescription(text);
         else
-            return notesService.findAllByUsername(username);
+            return notesService.findAll();
     }
 
 
     @PostMapping("/create")
-    public ResponseEntity<NotesDto> addNotes(@RequestAttribute("username") String username, @RequestBody NotesDto notes) {
-        if (notes.getName().isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Notes name can't be empty");
-        }
-        NotesDto save = notesService.save(username, notes);
+    public ResponseEntity<NotesDto> addNotes(@RequestBody NotesDto notes) {
+//        if (zxc) {
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Notes name can't be empty");
+//        }
+        NotesDto save = notesService.save(notes);
         if (save == null) {
-            throw new ApiRequestExcaption("Notes cannot save with exceptions");
+//            throw new ApiRequestException("Notes cannot save with exceptions");
         }
         return ResponseEntity.ok(save);
     }
 
     @PutMapping("/{id}/update")
-    public ResponseEntity<NotesDto> update(@PathVariable("id") Long id, @RequestBody NotesDto notesDto) {
+    public ResponseEntity<NotesDto> update(@PathVariable("id") Long id, @RequestBody NotesDto notesDto) throws ApiRequestException {
         if (!id.equals(notesDto.getId())) {
-            throw new ApiRequestExcaption("The update object need to have id same as id in path");
+//            todo: today is good? why? but why not? xd
+            ApiRequestException apiRequestException = new ApiRequestException("The update object need to have id same as id in path");
+            log.error(notesDto,apiRequestException);
+            throw  apiRequestException;
         }
         NotesDto updated = notesService.update(notesDto);
         return ResponseEntity.ok(updated);

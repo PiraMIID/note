@@ -1,7 +1,8 @@
 # note
 
-### App to create notes 
-# Angular
+### App to create notes
+# Fronend
+https://github.com/PiraMIID/notes-fronend
 # Spring
 
 ### Security: JWT
@@ -10,7 +11,7 @@
 
 
 ## Images
-![alt text](https://github.com/PiraMIID/note/blob/before_jwt/img.png?raw=true)
+![alt text](img.png)
 
-![alt text](https://github.com/PiraMIID/note/blob/before_jwt/img_1.png?raw=true)
+![alt text](img_1.png)
 

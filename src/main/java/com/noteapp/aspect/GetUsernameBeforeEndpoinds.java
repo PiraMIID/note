@@ -13,13 +13,18 @@ import org.springframework.web.bind.annotation.RequestAttribute;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Optional;
 
 @Aspect
 @Service
 @EnableAspectJAutoProxy
 public class GetUsernameBeforeEndpoinds {
 
-    public static String username;
+    public String username;
+
+    private static String getUsername() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
 
 //    todo: @Pointcut("execution(* com.noteapp.*..*(..))")
 //    i can use also @Pointcut("execution(* com.noteapp.*..*(..) || sdgsdbedrfb && asfsd)")
@@ -28,17 +33,17 @@ public class GetUsernameBeforeEndpoinds {
 //    also what you learned e.g.c.
 //    first i'm want faster. And this is the main reason that im slower
 //    but i very good actually.
-    @Pointcut("execution(* com.noteapp.*..*(..))")
-    private void anyMethod() {
-    }
-
-    @Before(value = "anyMethod()")
-    private String getUsername(JoinPoint joinPoint) {
-        if (!Arrays.stream(joinPoint.getArgs()).allMatch(Objects::nonNull) || joinPoint.getClass().isAssignableFrom(JpaRepository.class)) {
-            username = SecurityContextHolder.getContext().getAuthentication().getName();
-            System.out.println("GetUsernameBeforeEndpoinds username:" + username);
-            return username;
-        }
-        return "";
-    }
+//    @Pointcut("execution(* com.noteapp.*..*(..))")
+//    private void anyMethod() {
+//    }
+//
+//    @Before(value = "anyMethod()")
+//    private String getUsername(JoinPoint joinPoint) {
+//        if (!Arrays.stream(joinPoint.getArgs()).allMatch(Objects::nonNull) || joinPoint.getClass().isAssignableFrom(JpaRepository.class)) {
+//            username = SecurityContextHolder.getContext().getAuthentication().getName();
+//            System.out.println("GetUsernameBeforeEndpoinds username:" + username);
+//            return username;
+//        }
+//        return "";
+//    }
 }
