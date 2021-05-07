@@ -1,14 +1,10 @@
 package com.noteapp.exception.httpException;
 
-import com.noteapp.exception.helper.ApiExceptionJsonMessage;
+import com.noteapp.exception.helper.ApiExceptionJsonMessageTool;
 
 
 public class ApiConflictException extends RuntimeException {
-    public ApiConflictException(String message) {
-        super(message);
-    }
-
-    public ApiConflictException(ApiExceptionJsonMessage message) {
+    public ApiConflictException(ApiExceptionJsonMessageTool message) {
         super(message.getMassages());
     }
 }

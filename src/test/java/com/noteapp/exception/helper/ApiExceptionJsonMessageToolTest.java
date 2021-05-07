@@ -4,10 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-public class ApiExceptionJsonMessageTest {
+public class ApiExceptionJsonMessageToolTest {
     @Test
     public void testConstructor() {
-        assertEquals("", (new ApiExceptionJsonMessage()).massages);
+        assertEquals("", (new ApiExceptionJsonMessageTool()).massages);
     }
 }
 

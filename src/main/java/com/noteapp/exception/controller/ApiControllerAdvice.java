@@ -15,6 +15,7 @@ import java.time.ZonedDateTime;
 @ControllerAdvice
 public class ApiControllerAdvice {
 
+
     @ExceptionHandler(value = ApiConflictException.class)
     public ResponseEntity<Object> handleApiConflictException(
             ApiConflictException e
@@ -32,22 +33,24 @@ public class ApiControllerAdvice {
                 HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler(value = ApiNotFoundException.class)
-    public ResponseEntity<Object> handleApiRequestException(
-            ApiNotFoundException e
-    ) {
-        Json message = new Json(e.getMessage());
 
-        ApiException apiException =
-                new ApiException(
-                        HttpStatus.NOT_FOUND,
-                        message,
-                        ZonedDateTime.now());
 
-        return new ResponseEntity<>(
-                apiException,
-                HttpStatus.NOT_FOUND);
+        @ExceptionHandler(value = ApiNotFoundException.class)
+        public ResponseEntity<Object> handleApiRequestException (
+                ApiNotFoundException e
+    ){
+            Json message = new Json(e.getMessage());
+
+            ApiException apiException =
+                    new ApiException(
+                            HttpStatus.NOT_FOUND,
+                            message,
+                            ZonedDateTime.now());
+
+            return new ResponseEntity<>(
+                    apiException,
+                    HttpStatus.NOT_FOUND);
+        }
+
+
     }
-
-
-}

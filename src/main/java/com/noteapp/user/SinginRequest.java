@@ -12,16 +12,19 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Locale;
 
-/*
-Td activate validations in this class i need @Valid annotate in endpoints arguments
-* */
+// *
+// * Td activate validations in this class i need @Valid annotate in endpoints arguments
+// * @param asdfasdg
+// *
+// *
+// *
 public class SinginRequest {
-    @NotBlank(message = "username must be not empty")
+    @NotBlank(message = "username can not be empty")
     private String username;
-    @NotBlank(message = "email must ne not empty")
+    @NotBlank(message = "email not be empty")
     @Email(message = "email form is not correctly")
     private String email;
-    @Size(min = 8,  message = "password must have more then 8 chars not correctly")
+    @Size(min = 8, max=100,  message = "password must have more then 8 chars not correctly")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
