@@ -21,6 +21,7 @@ public class SinginRequest {
     @NotBlank(message = "email must ne not empty")
     @Email(message = "email form is not correctly")
     private String email;
+
     @Size(min = 8,  message = "password must have more then 8 chars not correctly")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
