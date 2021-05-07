@@ -1,4 +1,4 @@
-package com.noteapp.exception.message;
+package com.noteapp.exception.helper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

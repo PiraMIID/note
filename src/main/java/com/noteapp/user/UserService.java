@@ -2,8 +2,8 @@ package com.noteapp.user;
 
 
 import com.noteapp.config.SecurityConfig;
-import com.noteapp.exception.httpException.ConflictException;
-import com.noteapp.exception.message.ApiExceptionJsonMessage;
+import com.noteapp.exception.httpException.ApiConflictException;
+import com.noteapp.exception.helper.ApiExceptionJsonMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -54,7 +54,7 @@ public class UserService implements UserDetailsService {
             errMessage.add("email",msg);
         }
         if(!msg.isEmpty()) {
-            throw new ConflictException(errMessage);
+            throw new ApiConflictException(errMessage);
         }
     }
     boolean checkUsernameIsTaken(String username) {
