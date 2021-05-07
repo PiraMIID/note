@@ -11,12 +11,8 @@ public class ApiExceptionJsonMessage {
 
     String massages;
 
-
     public ApiExceptionJsonMessage() {
         this.massages = "";
-    }
-    public ApiExceptionJsonMessage(String s1, String s2) {
-        this.massages = "{\"" + s1 + "\": \"" + s2 + "\"}";
     }
 
     public void add(String s1, String s2) {

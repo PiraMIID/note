@@ -1,8 +1,7 @@
 package com.noteapp.exception.controller;
 
-import com.noteapp.exception.type.ApiException;
+import com.noteapp.exception.confing.ApiException;
 import com.noteapp.exception.helper.ApiExceptionJsonMessage;
-import com.noteapp.exception.type.ApiExceptionWithThrowable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -22,32 +21,14 @@ public class ApiValidArgsEndpointsControllerAdvice {
      * */
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
-    public ResponseEntity<Object> handleApiRequestArgumentNotValidException(MethodArgumentNotValidException bindingResult) {
+    public ResponseEntity<Object> handleApiRequestArgumentNotValidException(BindingResult bindingResult) {
+
         ApiExceptionJsonMessage apiExceptionJsonMessage = new ApiExceptionJsonMessage();
+
         apiExceptionJsonMessage.add(
                 Objects.requireNonNull(
                         bindingResult.getFieldError()).getField(),
                 bindingResult.getFieldError().getDefaultMessage());
-
-        Json message = new Json(apiExceptionJsonMessage.getMassages());
-
-        ApiException apiException = new ApiException(
-                HttpStatus.BAD_REQUEST,
-                message,
-                ZonedDateTime.now());
-
-        return new ResponseEntity<>(
-                apiException,
-                HttpStatus.BAD_REQUEST);
-    }
-
-
-    @ExceptionHandler(value = IllegalArgumentException.class)
-    public ResponseEntity<Object> handleApiRequestArgumentNotValidException(IllegalArgumentException bindingResult) {
-        ApiExceptionJsonMessage apiExceptionJsonMessage = new ApiExceptionJsonMessage();
-        apiExceptionJsonMessage.add(
-                        bindingResult.getLocalizedMessage(),
-                        bindingResult.getMessage());
 
         Json message = new Json(apiExceptionJsonMessage.getMassages());
 

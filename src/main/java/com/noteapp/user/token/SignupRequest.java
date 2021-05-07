@@ -1,31 +1,29 @@
-package com.noteapp.user.token;
+package com.noteapp.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sun.istack.NotNull;
-import net.bytebuddy.asm.Advice;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Payload;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import javax.validation.executable.ValidateOnExecution;
 import java.util.Locale;
 
-
-public class SignupRequest {
-    @NotBlank(message = "username can not be empty")
+/*
+Td activate validations in this class i need @Valid annotate in endpoints arguments
+* */
+public class SinginRequest {
+    @NotBlank(message = "username must be not empty")
     private String username;
-    @NotBlank(message = "email not be empty")
+    @NotBlank(message = "email must ne not empty")
     @Email(message = "email form is not correctly")
     private String email;
-    @Size(min = 8, max=100,  message = "password must have more then 8 chars not correctly")
+
+    @Size(min = 8,  message = "password must have more then 8 chars not correctly")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @NotNull
     private String password;
 
     public String getUsername() {
@@ -52,6 +50,7 @@ public class SignupRequest {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         this.password = passwordEncoder.encode(password);
     }
+
 //    needed in aspect
     @Override
     public String toString() {
