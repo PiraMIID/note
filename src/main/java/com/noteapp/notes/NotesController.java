@@ -45,14 +45,11 @@ public class NotesController {
     @PutMapping("/{id}/update")
     public ResponseEntity<NotesDto> update(@PathVariable("id") Long id, @RequestBody NotesDto notesDto) throws ApiRequestException {
         if (!id.equals(notesDto.getId())) {
-//            todo: today is good? why? but why not? xd
             ApiRequestException apiRequestException = new ApiRequestException("The update object need to have id same as id in path");
             log.error(notesDto,apiRequestException);
             throw  apiRequestException;
         }
-        NotesDto updated = notesService.update(notesDto);
-        return ResponseEntity.ok(updated);
-    }
+
 
     @DeleteMapping("/{id}")
     public Long deleteNotes(@PathVariable("id") Long id) {
