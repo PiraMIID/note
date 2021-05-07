@@ -1,5 +1,8 @@
 # note
 
+
+### App to create notes
+=======
 ### App to create notes 
 # Fronend
 https://github.com/PiraMIID/notes-fronend
@@ -11,7 +14,7 @@ https://github.com/PiraMIID/notes-fronend
 
 
 ## Images
-![alt text](https://github.com/PiraMIID/note/blob/before_jwt/img.png?raw=true)
+![alt text](img.png)
 
-![alt text](https://github.com/PiraMIID/note/blob/before_jwt/img_1.png?raw=true)
+![alt text](img_1.png)
 

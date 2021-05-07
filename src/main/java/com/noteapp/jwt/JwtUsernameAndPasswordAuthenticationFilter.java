@@ -69,11 +69,12 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                                             FilterChain chain,
                                             Authentication authResult) throws IOException, ServletException {
 
-        System.out.println(authResult.getAuthorities());
+        System.out.println(authResult.getDetails());
         String token = Jwts.builder()
                 .serializeToJsonWith(new JacksonSerializer<>(new JsonMapper()))
                 .setSubject(authResult.getName())
                 .claim("authorities", authResult.getAuthorities())
+
                 .setIssuedAt(new Date())
                 .setExpiration(java.sql.Date.valueOf(LocalDate.now().plusDays(jwtConfig.getTokenExpirationAfterDays())))
                 .signWith(secretKey, SignatureAlgorithm.forSigningKey(secretKey))

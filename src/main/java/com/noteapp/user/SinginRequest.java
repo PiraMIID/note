@@ -1,9 +1,12 @@
 package com.noteapp.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.validation.Payload;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -17,15 +20,9 @@ public class SinginRequest {
     @NotBlank(message = "email must ne not empty")
     @Email(message = "email form is not correctly")
     private String email;
-    @Size(min = 8, max = 30, message = "size of password is not correctly")
+    @Size(min = 0, max = 300, message = "size of password is not correctly")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
-
-
-    public SinginRequest(String username, String email, String password) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-    }
 
     public String getUsername() {
         return username;

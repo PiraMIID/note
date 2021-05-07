@@ -2,17 +2,28 @@ package com.noteapp.todos;
 
 import com.noteapp.user.User;
 import com.noteapp.user.UserRepository;
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Aspect
 @Service
+@EnableAspectJAutoProxy
 public class TodoService {
 
     private final TodoRepository todoRepository;
     private final UserRepository userRepository;
+    private String username;
+
+
 
 
     public TodoService(UserRepository userRepository, TodoRepository todoRepository) {
@@ -22,6 +33,7 @@ public class TodoService {
 
     List<TodoDto> findAll(String username) {
         System.out.println(username + " in Todo Service");
+        System.out.println(this.username);
         return todoRepository.findAllByUserUsername(username)
                 .stream()
                 .map(TodoMapper::toDto)

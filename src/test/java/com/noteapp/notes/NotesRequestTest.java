@@ -25,6 +25,7 @@ class NotesRequestTest {
         NotesRequest beforeJSON = new NotesRequest(notes);
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonString = objectMapper.writeValueAsString(beforeJSON);
+        System.out.println("to jest to:" + jsonString);
         NotesRequest afterJSON = objectMapper.readValue(jsonString, NotesRequest.class);
 
         // Then

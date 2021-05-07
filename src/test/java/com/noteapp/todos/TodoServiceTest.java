@@ -5,6 +5,7 @@ import com.noteapp.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ class TodoServiceTest {
     private UserRepository userRepository;
     @Mock
     private TodoRepository todoRepository;
+
 
     private TodoService underTest;
 

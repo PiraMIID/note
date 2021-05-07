@@ -1,6 +1,7 @@
 package com.noteapp.todos;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,7 +38,9 @@ public class TodoController {
     @DeleteMapping("/{id}/")
     public Long delete(@PathVariable Long id) {
         todoService.delete(id);
+
         return id;
     }
+
 
 }
