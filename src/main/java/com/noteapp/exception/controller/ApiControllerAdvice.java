@@ -1,20 +1,19 @@
 package com.noteapp.exception.controller;
 
-import com.noteapp.exception.confing.ApiException;
-
 import com.noteapp.exception.httpException.ApiConflictException;
 import com.noteapp.exception.httpException.ApiNotFoundException;
+import com.noteapp.exception.type.ApiException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import springfox.documentation.spring.web.json.Json;
 
 import java.time.ZonedDateTime;
 
-
-
+/**
+ * class to handle exceptions http type trows in @services and @controller classes
+ */
 
 @ControllerAdvice
 public class ApiControllerAdvice {
@@ -32,7 +31,10 @@ public class ApiControllerAdvice {
                         message,
                         ZonedDateTime.now());
 
-
+        return new ResponseEntity<>(
+                apiException,
+                HttpStatus.CONFLICT);
+    }
 
 
     @ExceptionHandler(value = ApiNotFoundException.class)
@@ -51,7 +53,6 @@ public class ApiControllerAdvice {
                 apiException,
                 HttpStatus.NOT_FOUND);
     }
-
 
 
 }
