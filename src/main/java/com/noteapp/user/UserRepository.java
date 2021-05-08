@@ -2,6 +2,7 @@ package com.noteapp.user;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Optional;
@@ -15,6 +16,8 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     Optional<User> findByEmail(String email);
 
+    //todo: make test of it is working well
+//    @Query("select true as user from User u where u.email like ?1 and u.isAccountNonLocked=false")
     boolean existsByEmail(String email);
 
 //    Long findUserIdByUsername(String userName);
