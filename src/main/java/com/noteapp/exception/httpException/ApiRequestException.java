@@ -1,13 +1,11 @@
 package com.noteapp.exception.httpException;
 
 
-import com.noteapp.exception.helper.ApiExceptionJsonMessageTool;
+import com.noteapp.exception.helper.ApiExceptionJsonMessage;
 
 
 public class ApiRequestException extends RuntimeException {
-    public ApiRequestException(ApiExceptionJsonMessageTool apiExceptionJsonMessageTool) {
-        super(apiExceptionJsonMessageTool.getMassages());
-
-
+    public ApiRequestException(ApiExceptionJsonMessage apiExceptionJsonMessage) {
+        super(apiExceptionJsonMessage.getMassages());
     }
 }

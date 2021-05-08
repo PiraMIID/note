@@ -1,8 +1,8 @@
 package com.noteapp.exception.controller;
 
-import com.noteapp.exception.confing.ApiException;
 import com.noteapp.exception.httpException.ApiConflictException;
 import com.noteapp.exception.httpException.ApiNotFoundException;
+import com.noteapp.exception.type.ApiException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -11,6 +11,9 @@ import springfox.documentation.spring.web.json.Json;
 
 import java.time.ZonedDateTime;
 
+/**
+ * class to handle exceptions http type trows in @services and @controller classes
+ */
 
 @ControllerAdvice
 public class ApiControllerAdvice {
@@ -34,23 +37,22 @@ public class ApiControllerAdvice {
     }
 
 
+    @ExceptionHandler(value = ApiNotFoundException.class)
+    public ResponseEntity<Object> handleApiRequestException(
+            ApiNotFoundException e
+    ) {
+        Json message = new Json(e.getMessage());
 
-        @ExceptionHandler(value = ApiNotFoundException.class)
-        public ResponseEntity<Object> handleApiRequestException (
-                ApiNotFoundException e
-    ){
-            Json message = new Json(e.getMessage());
+        ApiException apiException =
+                new ApiException(
+                        HttpStatus.NOT_FOUND,
+                        message,
+                        ZonedDateTime.now());
 
-            ApiException apiException =
-                    new ApiException(
-                            HttpStatus.NOT_FOUND,
-                            message,
-                            ZonedDateTime.now());
-
-            return new ResponseEntity<>(
-                    apiException,
-                    HttpStatus.NOT_FOUND);
-        }
-
-
+        return new ResponseEntity<>(
+                apiException,
+                HttpStatus.NOT_FOUND);
     }
+
+
+}

@@ -1,25 +1,16 @@
 package com.noteapp.jwt;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.google.common.base.Strings;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.io.DeserializationException;
-import io.jsonwebtoken.io.Deserializer;
 import io.jsonwebtoken.jackson.io.JacksonDeserializer;
-import io.jsonwebtoken.jackson.io.JacksonSerializer;
-import lombok.SneakyThrows;
-import nonapi.io.github.classgraph.json.JSONDeserializer;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.ui.ConcurrentModel;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.crypto.SecretKey;
@@ -28,7 +19,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -49,7 +39,7 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
+                                    FilterChain filterChain) throws RuntimeException, IOException, ServletException {
         String authorizationHeader = request.getHeader(jwtConfig.getAuthorizationHeader());
         System.out.println(authorizationHeader);
 
@@ -91,12 +81,13 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
                     simpleGrantedAuthorities
             );
             SecurityContextHolder.getContext().setAuthentication(authentication);
+            System.out.println("fine");
 
-        } catch (JwtException e) {
-            System.out.println(e);
-            throw new IllegalStateException(String.format("Token %s cannot be trusted", token));
+
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
         }
-        System.out.println("fine");
         filterChain.doFilter(request, response);
+
     }
 }

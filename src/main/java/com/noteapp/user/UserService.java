@@ -3,9 +3,11 @@ package com.noteapp.user;
 
 import com.noteapp.config.SecurityConfig;
 
-import com.noteapp.exception.helper.ApiExceptionJsonMessageTool;
+import com.noteapp.exception.helper.ApiExceptionJsonMessage;
 
 import com.noteapp.exception.httpException.ApiConflictException;
+import com.noteapp.user.token.SignupRequest;
+import com.noteapp.user.token.TokenRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,11 +18,12 @@ import org.springframework.stereotype.Service;
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
+    private final TokenRepository tokenRepository;
 
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, TokenRepository tokenRepository) {
         this.userRepository = userRepository;
-
+        this.tokenRepository = tokenRepository;
     }
 
     @Override
@@ -28,38 +31,5 @@ public class UserService implements UserDetailsService {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User " + username + " not found"));
     }
-
-    User save(SinginRequest singinRequest)  {
-        checkNotDataNotAlreadyInDB(singinRequest);
-        User user = new User();
-        user.setUsername(singinRequest.getUsername());
-        user.setPassword(SecurityConfig.passwordEncoder().encode(singinRequest.getPassword()));
-        user.setRole("ROLE_USER");
-        user.setEmail(singinRequest.getEmail());
-//        this  will be change after confirm token on email
-        user.setAccountNonLocked(false);
-        return userRepository.save(user);
-    }
-
-    private void checkNotDataNotAlreadyInDB(SinginRequest singinRequest) {
-        ApiExceptionJsonMessageTool errMessage = new ApiExceptionJsonMessageTool();
-        String msg = "";
-        if(checkUsernameIsTaken(singinRequest.getUsername())) {
-            msg = "Username " + singinRequest.getUsername() + " is taken. ";
-            errMessage.add("username",msg);
-
-        }
-        if(checkEmailIsTaken(singinRequest.getEmail())) {
-            msg = "Email " + singinRequest.getEmail() + " is taken";
-            errMessage.add("email",msg);
-        }
-        if(!msg.isEmpty()) {
-                throw new ApiConflictException(errMessage);
-        }
-    }
-    boolean checkUsernameIsTaken(String username) {
-        return userRepository.existsByUsername(username);
-    }
-    boolean checkEmailIsTaken(String email) { return userRepository.existsByEmail(email); }
 
 }
