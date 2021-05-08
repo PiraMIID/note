@@ -42,20 +42,20 @@ public class NotesController {
         return ResponseEntity.ok(save);
     }
 
-    @PutMapping("/{id}/update")
-    public ResponseEntity<NotesDto> update(@PathVariable("id") Long id, @RequestBody NotesDto notesDto) throws ApiRequestException {
-        if (!id.equals(notesDto.getId())) {
-            ApiRequestException apiRequestException = new ApiRequestException("The update object need to have id same as id in path");
-            log.error(notesDto,apiRequestException);
-            throw  apiRequestException;
-        }
+//    @PutMapping("/{id}/update")
+//    public ResponseEntity<NotesDto> update(@PathVariable("id") Long id, @RequestBody NotesDto notesDto) throws ApiRequestException {
+//        if (!id.equals(notesDto.getId())) {
+//            ApiRequestException apiRequestException = new ApiRequestException("The update object need to have id same as id in path");
+//            log.error(notesDto,apiRequestException);
+//            throw  apiRequestException;
+//        }
 
 
-    @DeleteMapping("/{id}")
-    public Long deleteNotes(@PathVariable("id") Long id) {
-        notesService.deleteNotes(id);
-        return id;
-    }
+//    @DeleteMapping("/{id}")
+//    public Long deleteNotes(@PathVariable("id") Long id) {
+//        notesService.deleteNotes(id);
+//        return id;
+//    }
 
 
 }

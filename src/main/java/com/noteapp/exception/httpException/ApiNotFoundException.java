@@ -1,12 +1,11 @@
 package com.noteapp.exception.httpException;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.noteapp.exception.helper.ApiExceptionJsonMessage;
 
 public class ApiNotFoundException extends RuntimeException {
-    public ApiNotFoundException(String message) {
-        super(message);
+    public ApiNotFoundException(ApiExceptionJsonMessage e) {
+        super(e.getMassages());
     }
 
 

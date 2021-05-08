@@ -13,12 +13,14 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Fast notes</name>
 
+
 	<properties>
 		<java.version>11</java.version>
 		<spring.cloud-version>2020.0.0</spring.cloud-version>
 	</properties>
 
 	<dependencyManagement>
+
 		<dependencies>
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
@@ -29,6 +31,11 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
+
+
+
+
 
 	<dependencies>
 		<dependency>
