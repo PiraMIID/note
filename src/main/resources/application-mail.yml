@@ -1,0 +1,20 @@
+spring:
+    mail:
+        host: smtp.gmail.com
+        username: notefasts0@gmail.com
+        password: Fastnotes1!
+        port: 587
+        protocol: smtp
+        properties:
+            "mail.transport.protocol": smtp
+            "mail.smtp.auth": true
+            "mail.smtp.starttls.enable": true
+
+
+mail:
+    MessageTitle: "Confirm account fast notes app"
+    MessageUsername: "$username"
+    MessageLink: "$link"
+    isHtmlContent: true
+    pathTemplate: "src/main/resources/static/mailMessage.html"
+    subjectMessage: "Fast notes app ! :D "
