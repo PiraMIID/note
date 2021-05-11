@@ -205,6 +205,30 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
+
+
+
+
+<!--use to create mail message-->
+		<dependency>
+			<groupId>org.apache.velocity.tools</groupId>
+			<artifactId>velocity-tools-generic</artifactId>
+			<version>3.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.velocity.tools</groupId>
+			<artifactId>velocity-tools-view</artifactId>
+			<version>3.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.velocity.tools</groupId>
+			<artifactId>velocity-tools-view-jsp</artifactId>
+			<version>3.0</version>
+		</dependency>
+
+
 	</dependencies>
 
 

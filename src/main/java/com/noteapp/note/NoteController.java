@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 //@Controller("/api/notes/{id}")
 public class NoteController {
 
-    private NotesService notesService;
+    private final NotesService notesService;
 
     public NoteController(NotesService notesService) {
         this.notesService = notesService;

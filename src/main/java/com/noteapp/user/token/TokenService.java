@@ -6,12 +6,12 @@ import com.noteapp.exception.httpException.ApiConflictException;
 import com.noteapp.user.User;
 import com.noteapp.user.UserRepository;
 import org.springframework.stereotype.Service;
-
+//asdg
 @Service
 public class TokenService {
 
-    private TokenRepository tokenRepository;
-    private UserRepository userRepository;
+    private final TokenRepository tokenRepository;
+    private final UserRepository userRepository;
 
     public TokenService(TokenRepository tokenRepository, UserRepository userRepository) {
         this.tokenRepository = tokenRepository;
