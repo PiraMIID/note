@@ -12,9 +12,10 @@ spring:
 
 
 mail:
-    MessageTitle: "Confirm account fast notes app"
+    tokenEndPoint: "http://localhost:8080/confirm?token="
     MessageUsername: "$username"
     MessageLink: "$link"
     isHtmlContent: true
-    pathTemplate: "src/main/resources/static/mailMessage.html"
-    subjectMessage: "Fast notes app ! :D "
+    pathTemplate: "src/main/resources/static/mail/mailMessage.html"
+    subjectMessage: "Confirm email to FASTNOTE app"
+    messageTitle: "$subjectMessage"

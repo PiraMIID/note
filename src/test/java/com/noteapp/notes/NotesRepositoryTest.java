@@ -2,6 +2,7 @@ package com.noteapp.notes;
 
 import com.noteapp.user.User;
 import com.noteapp.user.UserRepository;
+import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +12,15 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 
 @DataJpaTest
 class NotesRepositoryTest {
     /*
     Im use h2 database cause is working on RAM memory so is faster then postgres
+
+    H2 HAVE max? 1.5 MB memory size
     * */
 
 
@@ -48,14 +52,14 @@ class NotesRepositoryTest {
         kasia.setRole("ROLE_USER");
         userRepository.saveAll(List.of(kasia, dawid));
 
-//        Notes notes1 = new Notes(1L, "cosmos1", "online course1", LocalDateTime.now(), null, dawid);
-//        Notes notes2 = new Notes(2L, "cosmos2", "online course2", LocalDateTime.now(), null, dawid);
+        Notes notes1 = new Notes(1L, "cosmos1", "online course1", LocalDateTime.now(), null, dawid);
+        Notes notes2 = new Notes(2L, "cosmos2", "online course2", LocalDateTime.now(), null, dawid);
         Notes notes3 = new Notes(3L, "cosmos31", "online course32", LocalDateTime.now(), null, dawid);
         Notes notes4 = new Notes(4L, "cosmos4", "online course4", LocalDateTime.now(), null, dawid);
         Notes notes5 = new Notes(5L, "cosmos5", "online course5", LocalDateTime.now(), null, kasia);
         Notes notes6 = new Notes(6L, "cosmos6", "online course6", LocalDateTime.now(), null, kasia);
 
-        underTest.saveAll(List.of(notes3, notes4, notes5, notes6));
+        underTest.saveAll(List.of(notes1,notes2,notes3,notes4, notes5, notes6));
     }
 
 
@@ -64,7 +68,6 @@ class NotesRepositoryTest {
         // Given
         // When
         List<Notes> allByUsernameDawid = underTest.findAllByUsername(usernameDawid);
-
 
         // Then
 

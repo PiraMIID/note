@@ -9,5 +9,8 @@ public class ApiNotFoundException extends RuntimeException {
     }
 
 
+    public ApiNotFoundException(String s1, String s2) {
+        super(new ApiExceptionJsonMessage(s1,s2).getMassages());
+    }
 }
 

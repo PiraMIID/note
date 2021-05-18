@@ -3,29 +3,80 @@ package com.noteapp.user.token;
 import com.noteapp.config.SecurityConfig;
 import com.noteapp.exception.helper.ApiExceptionJsonMessage;
 import com.noteapp.exception.httpException.ApiConflictException;
+import com.noteapp.exception.httpException.ApiNotFoundException;
+import com.noteapp.exception.mail.ApiMailMessageExecption;
 import com.noteapp.user.User;
 import com.noteapp.user.UserRepository;
+import com.noteapp.user.email.MailService;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.mail.MessagingException;
+import javax.persistence.TransactionRequiredException;
+import java.io.IOException;
+import java.time.LocalTime;
+import java.util.Optional;
+import java.util.UUID;
+
 //asdg
 @Service
+@EnableScheduling
 public class TokenService {
 
     private final TokenRepository tokenRepository;
     private final UserRepository userRepository;
+    private final MailService mailService;
 
-    public TokenService(TokenRepository tokenRepository, UserRepository userRepository) {
+    public TokenService(TokenRepository tokenRepository, UserRepository userRepository, MailService mailService) {
         this.tokenRepository = tokenRepository;
         this.userRepository = userRepository;
+        this.mailService = mailService;
     }
 
-    User save(SignupRequest signupRequest)  {
+    @Transactional
+    @Scheduled(cron = "0 * * * * ?") //1min
+    public void checkTokensIsNotExpires() {
+        tokenRepository.removeAllByTokenExpiresAtLessThan(LocalTime.now());
+        userRepository.removeIfAccountIsNotConfirmAndTokenNotExist();
+
+    }
+
+    User save(SignupRequest signupRequest) {
         checkNotDataNotAlreadyInDB(signupRequest);
+        User saveUser = saveUser(signupRequest);
+        Token token = createToken(saveUser);
+        sendEmailWithToken(saveUser, token);
+        return userRepository.save(saveUser);
+    }
+
+    private void sendEmailWithToken(User user, Token token) {
+        try {
+            System.out.println(token.getToken() + "to jset token ");
+            mailService.sendMail(user.getEmail(), user.getUsername(),token.getToken());
+        } catch (MessagingException e) {
+            throw new ApiMailMessageExecption("mail", "error with sending massage on email. Please check email is correct ");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Token createToken(User saveUser) {
+        String token = UUID.randomUUID().toString();
+        Token tokenEntity = new Token();
+        tokenEntity.setToken(token);
+        tokenEntity.setTokenExpiresAt(LocalTime.now().plusMinutes(1));
+        tokenEntity.setUser(saveUser);
+        return tokenRepository.save(tokenEntity);
+    }
+
+    private User saveUser(SignupRequest signupRequest) {
         User user = new User();
         user.setUsername(signupRequest.getUsername());
         user.setPassword(SecurityConfig.passwordEncoder().encode(signupRequest.getPassword()));
         user.setRole("ROLE_USER");
         user.setEmail(signupRequest.getEmail());
-//       todo:  this  will be change after confirm token on email
         user.setAccountNonLocked(false);
         return userRepository.save(user);
     }
@@ -33,29 +84,45 @@ public class TokenService {
     private void checkNotDataNotAlreadyInDB(SignupRequest signupRequest) {
         ApiExceptionJsonMessage errMessage = new ApiExceptionJsonMessage();
         String msg = "";
-        if(checkUsernameIsTaken(signupRequest.getUsername())) {
+        if (checkUsernameIsTaken(signupRequest.getUsername())) {
             msg = "Username " + signupRequest.getUsername() + " is taken. ";
-            errMessage.add("username",msg);
+            errMessage.add("username", msg);
 
         }
-        if(checkEmailIsTaken(signupRequest.getEmail())) {
-//            todo: if user exists and and confirm email take details from database and send again
+        if (checkEmailIsTaken(signupRequest.getEmail())) {
             msg = "Email " + signupRequest.getEmail() + " is taken";
-            errMessage.add("email",msg);
+            errMessage.add("email", msg);
         }
-        if(!msg.isEmpty()) {
+        if (!msg.isEmpty()) {
             throw new ApiConflictException(errMessage);
         }
     }
 
 
-    private boolean checkUsernameIsTaken(String username) {
-        return userRepository.existsByUsername(username);
+    private boolean checkUsernameIsTaken(String username) { return userRepository.existsByUsername(username); }
+    private boolean checkEmailIsTaken(String email) { return userRepository.existsByEmail(email); }
+
+
+    public User confirmAccount(String token) throws TransactionRequiredException {
+        User newUser = getUserWitActiveToken(token);
+        newUser.setAccountNonLocked(true);
+        User save = userRepository.save(newUser);
+        return save;
     }
 
-    /**
-     * @param email - email of new user
-     * @return  boolean as true if other user account is use this email
-     */
-    private boolean checkEmailIsTaken(String email) { return userRepository.existsByEmail(email); }
+    private User getUserWitActiveToken(String token) {
+        Optional<Token> byToken = tokenRepository.findByToken(token);
+        return getUserFromToken(byToken);
+    }
+
+    private User getUserFromToken(Optional<Token> byToken) {
+        return byToken
+                .orElseThrow(
+                        () -> {
+                            throw new ApiNotFoundException("Token", "token is not found");
+                        }
+                )
+                .getUser();
+    }
 }
+
