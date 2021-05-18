@@ -29,7 +29,7 @@ public class ApiValidArgsEndpointsControllerAdvice {
                         bindingResult.getFieldError()).getField(),
                 bindingResult.getFieldError().getDefaultMessage());
 
-        Json message = new Json(apiExceptionJsonMessage.getMassages());
+        Json message = apiExceptionJsonMessage.getJsonMassage();
 
         ApiException apiException = new ApiException(
                 HttpStatus.BAD_REQUEST,

@@ -20,7 +20,7 @@ import java.util.List;
 @Entity
 public class Notes {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.)
     private Long id;
     @NotBlank
     private String name;
