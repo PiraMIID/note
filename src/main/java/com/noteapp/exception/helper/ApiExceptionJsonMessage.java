@@ -44,6 +44,8 @@ public class ApiExceptionJsonMessage {
         return new Json(massages);
     }
 
+    //todo: after you will end projeck thing that maybe better to remove it
+//    I think this method is not necessary but is useful so that why i leave it
     /**
      * method check string parts of json like " and {
      * if { is open is must to have close as }
@@ -51,23 +53,21 @@ public class ApiExceptionJsonMessage {
      *
      * method also check order e.g. "{"} throw error
      *
+     * this algorithm is not fully valid!! but check the most popular fail implementations
+     *
      * @param s this string will cast to json
      * @throw if string s can not be change to Json type
      */
     void check(String s) {  //see tests
         Stack<String> stack = new Stack<>();
 
-        int valueOneOrSecond = 1;
-        boolean nowIsColonNeeded = false;
-
         s.chars().forEach(
                 value -> {
                     if (Character.toString(value).equals("{")) stack.push(Character.toString(value));
-                    else if (Character.toString(value).equals("}") && !stack.isEmpty()) stack.pop();
+                    else if (Character.toString(value).equals("}") && stack.lastElement().equals("{")) stack.pop();
 
-                    if (Character.toString(value).equals("\"") && !stack.isEmpty() && stack.lastElement().equals("\"") && value==1) {
+                    if (Character.toString(value).equals("\"") && !stack.isEmpty() && stack.lastElement().equals("\"")) {
                         stack.pop();
-
                     }
                     else if (Character.toString(value).equals("\"")) stack.push(Character.toString(value));
                 }
@@ -77,4 +77,16 @@ public class ApiExceptionJsonMessage {
             throw new IllegalArgumentException("Programmer fail. String is not ready to change to Json");
         }
     }
+    /*
+    * 1. simple {"asd":"asdasd"}
+    * 2. complate {"asd":{"asd":"sdhrrtg"}}
+    * 3. in action {"asd"":true}
+    * */
+
+
+    /*
+    * all true
+    * 1. "asfas"
+    * 2. "asd":{.sdg.sdg.}
+    * */
 }

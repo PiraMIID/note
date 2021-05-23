@@ -36,15 +36,6 @@ public class NotesDtoTest {
         assertEquals("Category", notesDto.getCategory());
     }
 
-    @Test
-    public void testSetUser() {
-        NotesDto notesDto = new NotesDto();
-        notesDto.setUser(new User());
-        assertEquals(
-                "NotesDto{id=null, name='null', description='null', category='null', createdAt=null, user=User(id=null,"
-                        + " username=null, password=null, role=null)}",
-                notesDto.toString());
-    }
 
     @Test
     public void testSetCreatedAt() {

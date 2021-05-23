@@ -19,11 +19,9 @@ import java.net.URI;
 public class SignupController {
 
     private final TokenService tokenService;
-    private final MailService mailService;
 
-    public SignupController(TokenService tokenService, MailService mailService) {
+    public SignupController(TokenService tokenService) {
         this.tokenService = tokenService;
-        this.mailService = mailService;
     }
 
     @PostMapping("/signup")

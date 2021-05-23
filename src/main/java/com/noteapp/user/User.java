@@ -1,6 +1,8 @@
 package com.noteapp.user;
 
 
+import com.noteapp.notes.Notes;
+import java.util.Set;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,7 +20,7 @@ import java.util.Collections;
 @Table(name = "user_details")
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank
     private String username;

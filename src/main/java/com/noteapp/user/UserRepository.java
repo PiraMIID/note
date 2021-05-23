@@ -22,6 +22,9 @@ public interface UserRepository extends JpaRepository<User,Long> {
     boolean existsByEmail(String email);
 
 
+    /**
+     * this method
+     */
     @Modifying
     @Query("DELETE FROM User u where u.isAccountNonLocked=false and (select COUNT(t) from Token t where t.user=u)=0 ")
     void removeIfAccountIsNotConfirmAndTokenNotExist();
