@@ -29,6 +29,8 @@ public interface UserRepository extends JpaRepository<User,Long> {
     @Query("DELETE FROM User u where u.isAccountNonLocked=false and (select COUNT(t) from Token t where t.user=u)=0 ")
     void removeIfAccountIsNotConfirmAndTokenNotExist();
 
+    User save(User appUser);
+
 //    Long findUserIdByUsername(String userName);
 
 }

@@ -3,6 +3,8 @@ package com.noteapp.note;
 import com.noteapp.notes.NotesService;
 import org.springframework.stereotype.Controller;
 
+//todo: 6:
+
 @Controller("/api/notes/{id}")
 public class NoteController {
 

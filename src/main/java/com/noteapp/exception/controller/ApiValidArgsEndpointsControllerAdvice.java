@@ -14,16 +14,21 @@ import springfox.documentation.spring.web.json.Json;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
+
+
+
 @ControllerAdvice
 public class ApiValidArgsEndpointsControllerAdvice {
 
-    /*
+    /**
      * when valid type with annotation of the source exception by @Valid
-     * */
-
+     * @param bindingResult
+     * @return
+     */
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public ResponseEntity<Object> handleApiRequestArgumentNotValidException(MethodArgumentNotValidException bindingResult) {
         ApiExceptionJsonMessage apiExceptionJsonMessage = new ApiExceptionJsonMessage();
+//        todo: try to testing this parts, and also understanding this object.
         apiExceptionJsonMessage.add(
                 Objects.requireNonNull(
                         bindingResult.getFieldError()).getField(),

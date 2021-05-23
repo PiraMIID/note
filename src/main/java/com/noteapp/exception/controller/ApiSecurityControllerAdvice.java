@@ -32,5 +32,4 @@ public class ApiSecurityControllerAdvice {
                 apiException,
                 HttpStatus.FORBIDDEN);
     }
-//    LOCKED http
 }

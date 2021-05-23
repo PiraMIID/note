@@ -13,8 +13,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
+import org.springframework.stereotype.Service;
+
 
 @Configuration
+@Service
 public class Start {
     public Start(NotesRepository notesRepository,
                  UserRepository userRepository,
@@ -61,10 +64,10 @@ public class Start {
         for (int i = 0; i < 10; i++) {
             Notes notes = addNotes(faker,appUser);
             notesRepository.save(notes);
-            for (int j = 0; j < 5; j++) {
-                addNoteToNotes(faker,notes,noteRepository);
-
-            }
+//            for (int j = 0; j < 5; j++) {
+//                addNoteToNotes(faker,notes,noteRepository);
+//
+//            }
             addTodos(faker,appUser, todoRepository);
         }
     }
@@ -78,13 +81,13 @@ public class Start {
         return notes;
     }
 
-    void addNoteToNotes(Faker faker, Notes notes,NoteRepository noteRepository) {
-        Note note = new Note();
-        note.setQuestion(faker.lorem().sentence());
-        note.setTxtValue(faker.lorem().sentence(20));
-        note.setNotes(notes);
-        noteRepository.save(note);
-    }
+//    void addNoteToNotes(Faker faker, Notes notes,NoteRepository noteRepository) {
+//        Note note = new Note();
+//        note.setQuestion(faker.lorem().sentence());
+//        note.setTxtValue(faker.lorem().sentence(20));
+//        note.setNotes(notes);
+//        noteRepository.save(note);
+//    }
 
     void addTodos(Faker faker, User user, TodoRepository todoRepository) {
         Todo todo = new Todo();

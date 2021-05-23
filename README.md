@@ -20,16 +20,16 @@ if you want change this look to Start class
 - jwt is holding in localstorage by browse
 - settings of jwt in application-jwt.properties
 
-##Spring data
+## Spring data
 - data base: postgerSQL
 - settings in application.properties
 - fake data adding in Start class
 
+todo: 22: add description about exception handler system 
 
-
-## Images
+## Some Images
 ![alt text](img_3.png)
-#mail to confirm account
+# mail to confirm account
 ![alt text](img_2.png)
 
 ![alt text](img.png)

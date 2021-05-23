@@ -26,6 +26,8 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.Map;
 
+
+
 public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter  {
 
     private final AuthenticationManager authenticationManager;
@@ -45,7 +47,6 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                                                 HttpServletResponse response) throws AuthenticationException {
 
         try {
-            System.out.println("1");
             UsernameAndPasswordAuthenticationRequest authenticationRequest = new ObjectMapper()
                     .readValue(request.getInputStream(), UsernameAndPasswordAuthenticationRequest.class);
 
@@ -53,7 +54,6 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                     authenticationRequest.getUsername(),
                     authenticationRequest.getPassword()
             );
-            System.out.println(authentication.getPrincipal().toString());
             Authentication authenticate = authenticationManager.authenticate(authentication);
             return authenticate;
 
@@ -69,7 +69,6 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                                             FilterChain chain,
                                             Authentication authResult) throws IOException, ServletException {
 
-        System.out.println(authResult.getDetails());
         String token = Jwts.builder()
                 .serializeToJsonWith(new JacksonSerializer<>(new JsonMapper()))
                 .setSubject(authResult.getName())
@@ -80,12 +79,12 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                 .signWith(secretKey, SignatureAlgorithm.forSigningKey(secretKey))
                 .compact();
 
-        System.out.println(token);
         String authorizationHeader = jwtConfig.getAuthorizationHeader();
         String value = jwtConfig.getTokenPrefix() + token;
         if(!response.isCommitted()) {
             response.addHeader(authorizationHeader, value);
 
+//          todo:   is still nested? make sure when you will be working with
             Map<String, Object> detailsNeededAngular = Map.of("jwt", value, "username", authResult.getName(), "role", authResult.getAuthorities().stream().findFirst());
             response.getWriter().write(JSONSerializer.serializeObject(detailsNeededAngular));
             chain.doFilter(request,response);

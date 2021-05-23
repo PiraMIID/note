@@ -24,8 +24,12 @@ public class Note {
     )
     private Notes notes;
 
-//    @Lob
-//    @Column(name = "screen", columnDefinition = "BOLB")
-//    private byte[] screen;
-//    private String note;
+    //todo: is not tested. Is this works ?
+    @Lob
+    @Column(
+        name = "screen",
+        columnDefinition = "BOLB"
+    )
+    private byte[] screen;
+    private String note;
 }
