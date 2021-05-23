@@ -1,8 +1,7 @@
 package com.noteapp.exception.controller;
 
 
-import com.noteapp.exception.httpException.ApiConflictException;
-import com.noteapp.exception.mail.ApiMailMessageExecption;
+import com.noteapp.exception.mail.ApiMailMessageException;
 import com.noteapp.exception.type.ApiException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +14,9 @@ import java.time.ZonedDateTime;
 @ControllerAdvice
 public class ApiMailControllerAdvice {
 
-    @ExceptionHandler(value = ApiMailMessageExecption.class)
+    @ExceptionHandler(value = ApiMailMessageException.class)
     public ResponseEntity<Object> handleApiConflictException(
-            ApiMailMessageExecption e
+            ApiMailMessageException e
     ) {
         Json message = new Json(e.getMessage());
 

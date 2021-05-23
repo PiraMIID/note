@@ -20,7 +20,7 @@ import java.util.List;
 @Entity
 public class Notes {
     @Id
-//    @GeneratedValue(strategy = GenerationType.)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank
     private String name;
@@ -47,4 +47,13 @@ public class Notes {
             )
     )
     private User user;
+
+    public Notes(@NotBlank String name, String description, LocalDateTime createdAt,
+        List<Note> notes, User user) {
+        this.name = name;
+        this.description = description;
+        this.createdAt = createdAt;
+        this.notes = notes;
+        this.user = user;
+    }
 }

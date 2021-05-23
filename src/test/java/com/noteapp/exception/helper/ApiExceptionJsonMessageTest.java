@@ -48,11 +48,19 @@ public class ApiExceptionJsonMessageTest {
 
     }
 
+    @Test
+    void itShouldOneLevelJson() {
+        // Given
+        // When
+        // Then
+
+
+    }
 
     @Test
     void itShouldThrowWhenStringIsNotOk() {
         // Given
-        String s = "{\"message\": \"We are send message on \" + signupRequest.getEmail() +\" with link. Please confirm to get access to you account. Thanks for join\"}\"";
+        String s = "{\"message\": \"We are send message on \" + signupRequest.getEmail() + \" with link. Please confirm to get access to you account. Thanks for join\"}\"";
         // When
         // Then
         String s1 = "Programmer fail. String is not ready to change to Json";

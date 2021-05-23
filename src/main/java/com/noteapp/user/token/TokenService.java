@@ -4,7 +4,7 @@ import com.noteapp.config.SecurityConfig;
 import com.noteapp.exception.helper.ApiExceptionJsonMessage;
 import com.noteapp.exception.httpException.ApiConflictException;
 import com.noteapp.exception.httpException.ApiNotFoundException;
-import com.noteapp.exception.mail.ApiMailMessageExecption;
+import com.noteapp.exception.mail.ApiMailMessageException;
 import com.noteapp.user.User;
 import com.noteapp.user.UserRepository;
 import com.noteapp.user.email.MailService;
@@ -51,27 +51,30 @@ public class TokenService {
         return userRepository.save(saveUser);
     }
 
-    private void sendEmailWithToken(User user, Token token) {
+    void sendEmailWithToken(User user, Token token) {
         try {
-            System.out.println(token.getToken() + "to jset token ");
             mailService.sendMail(user.getEmail(), user.getUsername(),token.getToken());
         } catch (MessagingException e) {
-            throw new ApiMailMessageExecption("mail", "error with sending massage on email. Please check email is correct ");
+            throw new ApiMailMessageException("mail", "Valid process of sending massage on email. Please check email is correct ");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private Token createToken(User saveUser) {
+    /**
+     * if token will not confirm in 2 min user will be remove
+     * this mechanism is usefully cause if new user create user with wrong email  can wait 2 min and use same username again.
+     */
+    Token createToken(User saveUser) {
         String token = UUID.randomUUID().toString();
         Token tokenEntity = new Token();
         tokenEntity.setToken(token);
-        tokenEntity.setTokenExpiresAt(LocalTime.now().plusMinutes(1));
+        tokenEntity.setTokenExpiresAt(LocalTime.now().plusMinutes(2));
         tokenEntity.setUser(saveUser);
         return tokenRepository.save(tokenEntity);
     }
 
-    private User saveUser(SignupRequest signupRequest) {
+    User saveUser(SignupRequest signupRequest) {
         User user = new User();
         user.setUsername(signupRequest.getUsername());
         user.setPassword(SecurityConfig.passwordEncoder().encode(signupRequest.getPassword()));
@@ -81,7 +84,7 @@ public class TokenService {
         return userRepository.save(user);
     }
 
-    private void checkNotDataNotAlreadyInDB(SignupRequest signupRequest) {
+    void checkNotDataNotAlreadyInDB(SignupRequest signupRequest) {
         ApiExceptionJsonMessage errMessage = new ApiExceptionJsonMessage();
         String msg = "";
         if (checkUsernameIsTaken(signupRequest.getUsername())) {
@@ -99,8 +102,8 @@ public class TokenService {
     }
 
 
-    private boolean checkUsernameIsTaken(String username) { return userRepository.existsByUsername(username); }
-    private boolean checkEmailIsTaken(String email) { return userRepository.existsByEmail(email); }
+    boolean checkUsernameIsTaken(String username) { return userRepository.existsByUsername(username); }
+    boolean checkEmailIsTaken(String email) { return userRepository.existsByEmail(email); }
 
 
     public User confirmAccount(String token) throws TransactionRequiredException {

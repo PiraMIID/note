@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class UserRepositoryTest {
 
     @Autowired
-    UserRepository userRepository;
+    UserRepository underTest;
 
 
     @Test
@@ -40,10 +40,10 @@ class UserRepositoryTest {
         appUser.setUsername("dawid");
         appUser.setPassword(passwordEncoder.encode("szmajduch"));
         appUser.setRole("ROLE_USER");
-        userRepository.save(appUser);
+        underTest.save(appUser);
         //when
 
-        Optional<User> user = userRepository.findByUsername("dawid");
+        Optional<User> user = underTest.findByUsername("dawid");
 
         //then
 
@@ -67,10 +67,10 @@ class UserRepositoryTest {
         user1.setAccountNonLocked(true);
         user1.setUsername("janedoe");
         user1.setId(123L);
-        this.userRepository.<User>save(user);
-        this.userRepository.<User>save(user1);
-        this.userRepository.removeIfAccountIsNotConfirmAndTokenNotExist();
-        List<User> findAllResult = this.userRepository.findAll();
+        this.underTest.<User>save(user);
+        this.underTest.<User>save(user1);
+        this.underTest.removeIfAccountIsNotConfirmAndTokenNotExist();
+        List<User> findAllResult = this.underTest.findAll();
         assertTrue(findAllResult instanceof ArrayList);
         assertEquals(2, ((ArrayList) findAllResult).size());
         Object getResult = ((ArrayList) findAllResult).get(0);
