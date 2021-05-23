@@ -11,6 +11,7 @@ import com.noteapp.user.email.MailService;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
@@ -20,14 +21,15 @@ import java.time.LocalTime;
 import java.util.Optional;
 import java.util.UUID;
 
-//asdg
 @Service
 @EnableScheduling
 public class TokenService {
 
     private final TokenRepository tokenRepository;
     private final UserRepository userRepository;
+
     private final MailService mailService;
+
 
     public TokenService(TokenRepository tokenRepository, UserRepository userRepository, MailService mailService) {
         this.tokenRepository = tokenRepository;
