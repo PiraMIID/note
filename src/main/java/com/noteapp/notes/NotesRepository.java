@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
+//todo: 10 : clean
 public interface NotesRepository extends JpaRepository<Notes, Long> {
 
     @Query("select n from Notes n where n.user.username = :username")
@@ -15,7 +16,7 @@ public interface NotesRepository extends JpaRepository<Notes, Long> {
             "and n.user.username like :username ")
     List<Notes> findAllByUsernameAndNameOrDescription(String username, String text);
 
-//    Notes save(Notes notes);
+    Notes save(Notes notes);
 
     List<Notes> findAllByUserUsernameAndName(String user, String name);
 

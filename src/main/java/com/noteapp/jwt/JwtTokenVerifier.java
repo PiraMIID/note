@@ -7,87 +7,79 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.jackson.io.JacksonDeserializer;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+import javax.crypto.SecretKey;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.crypto.SecretKey;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @JsonDeserialize
 public class JwtTokenVerifier extends OncePerRequestFilter {
 
-    private final SecretKey secretKey;
-    private final JwtConfig jwtConfig;
+  private final SecretKey secretKey;
+  private final JwtConfig jwtConfig;
 
-    public JwtTokenVerifier(SecretKey secretKey,
-                            JwtConfig jwtConfig) {
-        this.secretKey = secretKey;
-        this.jwtConfig = jwtConfig;
+  public JwtTokenVerifier(SecretKey secretKey,
+      JwtConfig jwtConfig) {
+    this.secretKey = secretKey;
+    this.jwtConfig = jwtConfig;
+  }
+
+  @Override
+  protected void doFilterInternal(HttpServletRequest request,
+      HttpServletResponse response,
+      FilterChain filterChain) throws RuntimeException, IOException, ServletException {
+    String authorizationHeader = request.getHeader(jwtConfig.getAuthorizationHeader());
+
+    if (Strings.isNullOrEmpty(authorizationHeader) || !authorizationHeader
+        .startsWith(jwtConfig.getTokenPrefix())) {
+      filterChain.doFilter(request, response);
+      return;
     }
 
-    @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain) throws RuntimeException, IOException, ServletException {
-        String authorizationHeader = request.getHeader(jwtConfig.getAuthorizationHeader());
-        System.out.println(authorizationHeader);
+    String token = authorizationHeader.replace(jwtConfig.getTokenPrefix(), "");
 
-        if (Strings.isNullOrEmpty(authorizationHeader) || !authorizationHeader.startsWith(jwtConfig.getTokenPrefix())) {
-            filterChain.doFilter(request, response);
-            return;
-        }
+    try {
+      Jws<Claims> claimsJws = Jwts.parser()
+          .setSigningKey(secretKey)
+          .deserializeJsonWith(new JacksonDeserializer<>(new JsonMapper()))
+          .parseClaimsJws(token);
 
-        String token = authorizationHeader.replace(jwtConfig.getTokenPrefix(), "");
+      Claims body = claimsJws.getBody();
 
-        try {
-            Jws<Claims> claimsJws = Jwts.parser()
-                    .setSigningKey(secretKey)
-                    .deserializeJsonWith(new JacksonDeserializer<>(new JsonMapper()))
-                    .parseClaimsJws(token);
+      String username = body.getSubject();
 
-            Claims body = claimsJws.getBody();
+//      change to : in every Service type classes username is taking from security context holder
+//      request.setAttribute("username", username);
 
-            String username = body.getSubject();
+      var authorities = (List<Map<String, String>>) body.get("authorities");
 
+      Set<SimpleGrantedAuthority> simpleGrantedAuthorities = authorities.stream()
+          .map(m -> new SimpleGrantedAuthority(m.get("authority")))
+          .collect(Collectors.toSet());
 
-            request.setAttribute("username", username);
+      Authentication authentication = new UsernamePasswordAuthenticationToken(
+          username,
+          null,
+          simpleGrantedAuthorities
+      );
 
-            System.out.println("username: " + username);
-            System.out.println("request");
-            System.out.println(request.getAttribute("username"));
-            System.out.println();
+      SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            var authorities = (List<Map<String, String>>) body.get("authorities");
-
-
-            Set<SimpleGrantedAuthority> simpleGrantedAuthorities = authorities.stream()
-                    .map(m -> new SimpleGrantedAuthority(m.get("authority")))
-                    .collect(Collectors.toSet());
-
-            Authentication authentication = new UsernamePasswordAuthenticationToken(
-                    username,
-                    null,
-                    simpleGrantedAuthorities
-            );
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            System.out.println("fine");
-
-
-        } catch (Exception e) {
-            System.out.println(e.getLocalizedMessage());
-        }
-        filterChain.doFilter(request, response);
-
+    } catch (Exception e) {
     }
+    filterChain.doFilter(request, response);
+
+  }
 }

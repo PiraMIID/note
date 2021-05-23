@@ -13,6 +13,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Arrays;
 
+//todo: 18: all annotations are needed?
 
 @SpringBootApplication
 @EnableSwagger2
@@ -26,8 +27,8 @@ public class DemoApplication {
         final ConfigurableApplicationContext applicationContext = SpringApplication.run(DemoApplication.class, args);
 
 
-//        show create beans in console when starting
-        Arrays.stream(applicationContext.getBeanDefinitionNames()).forEach(LOG::info);
+//        show create beans in console when app starting
+//        Arrays.stream(applicationContext.getBeanDefinitionNames()).forEach(LOG::info);
 	}
 
 }

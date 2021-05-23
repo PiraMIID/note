@@ -7,6 +7,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
+//todo: 13: check
+
 @Entity
 @Getter
 @Setter
@@ -34,7 +36,6 @@ public class Todo {
     }
 
     public Todo( @NotBlank String name, @NotBlank String value, boolean isDone, User user) {
-        this.id = id;
         this.name = name;
         this.value = value;
         this.isDone = isDone;

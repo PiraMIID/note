@@ -24,9 +24,6 @@ public class ApiControllerAdvice {
             ApiConflictException e
     ) {
         Json message = new Json(e.getMessage()+"asfasf");
-        System.out.println(ZonedDateTime.now());
-        System.out.println(HttpStatus.CONFLICT);
-        System.out.println(HttpStatus.CONFLICT.value());
 
         ApiException apiException =
                 new ApiException(

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @Log4j2
 @RestController
 @RequestMapping("api/notes")
@@ -32,18 +33,18 @@ public class NotesController {
 
     @PostMapping("/create")
     public ResponseEntity<NotesDto> addNotes(@RequestBody NotesDto notes) {
-//        if (zxc) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Notes name can't be empty");
-//        }
+        if (notes==null) {
+            throw new ApiRequestException("request", "Request body can't be empty");
+        }
         NotesDto save = notesService.save(notes);
         if (save == null) {
-//            throw new ApiRequestException("Notes cannot save with exceptions");
+            throw new ApiRequestException("request", "Notes cannot save");
         }
         return ResponseEntity.ok(save);
     }
 
     @PutMapping("/{id}/update")
-    public NotesDto update(@PathVariable("id") Long id, @RequestBody NotesDto notesDto) throws ApiRequestException {
+    public NotesDto update(@PathVariable("id") Long id, @RequestBody NotesDto notesDto) {
         if (!id.equals(notesDto.getId())) {
             ApiRequestException apiRequestException = new ApiRequestException("request",
                 "The update object need to have id same as id in path");

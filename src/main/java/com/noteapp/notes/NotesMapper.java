@@ -2,7 +2,7 @@ package com.noteapp.notes;
 
 import org.springframework.stereotype.Service;
 
-@Service
+
 public class NotesMapper {
 
     public static NotesDto toDto(Notes notes) {

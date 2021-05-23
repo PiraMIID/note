@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 
 
-//todo: today make valid but try to write in best way compare with clean code role
+//todo: 12: today make valid but try to write in best way compare with clean code role
 @Service
 public class NotesService {
 
