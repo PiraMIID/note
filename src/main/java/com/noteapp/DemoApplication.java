@@ -8,6 +8,9 @@ import org.springframework.context.ConfigurableApplicationContext;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
+import java.util.Arrays;
+
+
 @SpringBootApplication
 @EnableSwagger2
 //@EnableFeignClients
@@ -22,6 +25,8 @@ public class DemoApplication {
 
 //        show create beans in console when app starting
 //        Arrays.stream(applicationContext.getBeanDefinitionNames()).forEach(LOG::info);
+
   }
+
 
 }
