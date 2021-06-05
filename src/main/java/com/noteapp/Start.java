@@ -15,7 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 
-//todo : 17: clean up
 @Configuration
 @Service
 public class Start {

@@ -11,10 +11,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-//todo: 16:  this annotations are joke ? xd
-@Aspect
+
 @Service
-@EnableAspectJAutoProxy
 public class TodoService {
 
     private final TodoRepository todoRepository;

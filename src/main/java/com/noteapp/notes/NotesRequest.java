@@ -2,8 +2,9 @@ package com.noteapp.notes;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-//class create to test
-//todo: 11: today check that this class is needed
+
+//todo: 11: today check that this class is needed (i live for now)
+
 public class NotesRequest {
 
     private final NotesDto notesDto;
